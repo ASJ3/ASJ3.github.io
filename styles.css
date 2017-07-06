@@ -54,6 +54,6 @@ body {
 /*Margin by pixel:*/
 @media screen and ( max-width: 500px ){
     .container{
-        margin: 0 15px;
+        margin:0 3%;
     }
 }
