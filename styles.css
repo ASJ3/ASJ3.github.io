@@ -162,11 +162,17 @@ p {
 
 
 
+
+
+
+
+
+
 .container
 {	
 	max-width: 1100px;
 	margin:0 auto; 
-	background-color: #a5b6d3;
+	/*background-color: #a5b6d3;*/
 
 }
 /*Margin by pixel:*/
