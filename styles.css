@@ -20,7 +20,7 @@ body {
 	background-color:grey;
 	font-family: Arial,sans-serif; 
 	font-size:11pt;
-	margin:55px 0 0 0;
+	margin:60px 0 0 0;
 }
 h3 {
       margin: 0px;
@@ -29,11 +29,13 @@ h2 {
       margin: 0px;
 }
 ul	{
-	margin-top:5px;
+	margin:0 0 3px 0;
+
 }
 
+
 p {
-	margin:3px 0px;
+	margin:6px 0px 4px 0px;
 }
 
 
@@ -41,28 +43,40 @@ p {
 	position: fixed;
   	top: 0;
   	left: 0;
-  	z-index: 999;
+  	z-index: 1;
   	width: 100%;
 
 	background-color: #fff;
 	height: 38px;
 	padding: 4px 0px;
 
-	text-align: center;
+	/*text-align: center;*/
 	line-height:38px;
 	font-size: 16pt;
 	font-weight: bold;
 
 	border-bottom:2px solid grey;
 	box-shadow: 0px 5px 5px grey;
-
-
 }
+
+.title {
+	text-align: center;
+	font-size:28px;
+	overflow:hidden;
+	padding-right:125px;
+	
+}
+
+.menuButton {
+	float:left;
+}
+
 .card {
 	max-width: 500px;
-	margin:35px auto 0px auto;
+	margin:30px auto 0px auto;
 	background-color: #eaeaea;
 	border:1px solid #888888;
+	padding:0 0 0px 0;
 
 }
 
@@ -76,7 +90,7 @@ p {
 }
 
 .cardText {
-	padding:0 12px;
+	padding:10px 12px;
 }
 
 .green {
@@ -88,6 +102,65 @@ p {
 	background-color: #0da4ba; 
 	border-bottom: 3px solid #046c87;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+
+
+
+
+
+
+
+
 
 .container
 {	
