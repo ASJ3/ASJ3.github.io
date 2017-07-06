@@ -15,18 +15,27 @@
 	width:7px; 
 	background-color:#fff;
 }
-h3 {
-      margin: 0px;
-}
-h2 {
-      margin: 0px;
-}
+
 body {
 	background-color:grey;
 	font-family: Arial,sans-serif; 
 	font-size:11pt;
 	margin:55px 0 0 0;
 }
+h3 {
+      margin: 0px;
+}
+h2 {
+      margin: 0px;
+}
+ul	{
+	margin-top:5px;
+}
+
+p {
+	margin:3px 0px;
+}
+
 
 .topBar {
 	position: fixed;
@@ -64,6 +73,10 @@ body {
 	font-variant: small-caps; 
 	text-shadow: 1px 1px #6f8c2c;
 	
+}
+
+.cardText {
+	padding:0 12px;
 }
 
 .green {
