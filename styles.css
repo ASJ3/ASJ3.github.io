@@ -63,7 +63,7 @@ p {
 	text-align: center;
 	font-size:28px;
 	overflow:hidden;
-	padding-right:125px;
+	padding-right:45px;
 	
 }
 
@@ -95,7 +95,7 @@ p {
 
 .green {
 	background-color: #95bc3d;
-	border-bottom:2px solid #578c3f; 
+	border-bottom:3px solid #578c3f; 
 }
 
 .blue { 
@@ -103,11 +103,21 @@ p {
 	border-bottom: 3px solid #046c87;
 }
 
+.purple {
+	background-color: #886886; 
+	border-bottom: 3px solid #690075;
+}
+
+.red {
+	background-color: #f55f4c; 
+	border-bottom: 3px solid #cb1a0c;
+}
 
 
-
-
-
+.yellow {
+	background-color: #ffd13a; 
+	border-bottom: 3px solid #faac05;
+}
 
 
 
