@@ -22,10 +22,10 @@ h2 {
       margin: 0px;
 }
 body {
-	background-color:#657882;
+	background-color:grey;
 	font-family: Arial,sans-serif; 
 	font-size:11pt;
-	margin:0;
+	margin:55px 0 0 0;
 }
 
 .topBar {
@@ -34,11 +34,19 @@ body {
   	left: 0;
   	z-index: 999;
   	width: 100%;
+
 	background-color: #fff;
 	height: 38px;
 	padding: 4px 0px;
+
 	text-align: center;
+	line-height:38px;
 	font-size: 16pt;
+	font-weight: bold;
+
+	border-bottom:2px solid grey;
+	box-shadow: 0px 5px 5px grey;
+
 
 }
 .card {
@@ -72,7 +80,7 @@ body {
 {	
 	max-width: 1100px;
 	margin:0 auto; 
-	background-color: yellow;
+	background-color: #a5b6d3;
 
 }
 /*Margin by pixel:*/
