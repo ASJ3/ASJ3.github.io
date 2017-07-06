@@ -34,14 +34,24 @@ body {
 	border:1px solid #888888;
 
 }
-.cardTitle {
-	background-color: #95bc3d; 
+
+.cardTitle { 
 	padding:10px 6px 6px 6px; 
 	text-align: center; 
 	color:#fff; 
 	font-variant: small-caps; 
 	text-shadow: 1px 1px #6f8c2c;
+	
+}
+
+.green {
+	background-color: #95bc3d;
 	border-bottom:2px solid #578c3f; 
+}
+
+.blue { 
+	background-color: #0da4ba; 
+	border-bottom: 3px solid #046c87;
 }
 
 .container
