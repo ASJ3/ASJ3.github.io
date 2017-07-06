@@ -1,0 +1,26 @@
+.green {
+	background-color:#d7edaf;
+}
+.red {
+	background-color:#fcc4c2;
+}
+.white {
+	background-color:#fff;
+}
+.mthInfo {
+	margin:0px 0px; 
+	ine-height: 90%;
+}
+.separator {
+	width:7px; 
+	background-color:#fff;
+}
+h3 {
+      margin: 0px;
+}
+h2 {
+      margin: 0px;
+}
+body {
+	background-color:#657882;
+}
