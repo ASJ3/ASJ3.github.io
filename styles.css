@@ -24,3 +24,22 @@ h2 {
 body {
 	background-color:#657882;
 }
+.container1 {
+	min-width: 1000px;
+    max-width: 1500px; 
+	margin:0 auto; 
+	background-color: white;
+}
+.container
+{
+	margin:0 auto; 
+	background-color: white;
+    margin: 0 25%;
+}
+
+/*Margin by pixel:*/
+@media screen and ( max-width: 500px ){
+    .container{
+        margin: 0 15px;
+    }
+}
