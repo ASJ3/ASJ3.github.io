@@ -6,43 +6,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-  <div class="topBar">Title</div>
+  <div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#">Recommendations</a>
+  <a href="#">Performance</a>
+  <a href="#">News</a>
+  <a href="#">Contact</a>
+  </div>
+
+
+
+
+  <div class="topBar"><div class="menuButton"><span style="font-size:28px; font-variant: small-caps;cursor:pointer" onclick="openNav()">&#9776; MENU</span></div><div class="title">Recommendations</div></div>
   <div class="container">
     <div class="card">
       <div class="cardTitle green">
           <h3>Save an estimated</h3>
-          <h2>1,558 a year</h2>
+          <h2>$1,557 a year</h2>
           <h3>by staying in bracket 3</h3>
       </div>
       <div class="cardText">
         <p>Here are steps to help you reach this goal:</p>
-        <p><br/>
-          <b>Buy from your Master Food Distributor</b> in the following categories:</p>
-        <ul>
+        <p><b>Buy from your Master Food Distributor</b> in the following categories:</p>
+	<ul>
             <li>Potatoes</li>
         </ul>
-        <p>
-          <br/>
-          <b>Move your spend away from regional and rooms suppliers</b> to your MFD in the following categories ( spent with regional/rooms suppliers 2  months ago):          
+        <p><b>Move your spend away from regional and rooms suppliers</b> to your MFD in the following categories ($ spent with regional/rooms suppliers 2  months ago):          
           </p>
         <ul>
-            <li>Water (52)</li>
-            <li>Disposable Cups (632)</li>
-            <li>Plastic / Disposable Gloves (25)</li>
-            <li>Trash Bags / Can Liners (23)</li>
+            <li>Water ($52)</li>
+            <li>Disposable Cups ($632)</li>
+            <li>Plastic / Disposable Gloves ($25)</li>
+            <li>Trash Bags / Can Liners ($23)</li>
         </ul>
       </div>
     </div>
     <div class="card">
       <div class="cardTitle blue">
         <h3>Cumulative Average Drop Size:</h3>
-        <h2>1,255</h2>
+        <h2>$1,255</h2>
         <h3>(bracket 2 min: $1,000)</h3>
       </div>
       <div class="cardText">
         <p><strong>Note:</strong> The innerWidth and innerHeight properties are not supported in IE8 and earlier.</p>
         <p id="demo"></p>
         <button onclick="myFunction()">Try it</button>
+
+	<p>&nbsp;</p>
+	
+
       </div>
     </div>
     
@@ -57,5 +69,14 @@ function myFunction() {
     var h = window.innerHeight;
     document.getElementById("demo").innerHTML = "Width: " + w + "<br>Height: " + h;
 }
+
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+
 </script>
   </body></html>
