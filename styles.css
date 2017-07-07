@@ -2,7 +2,7 @@ body {
 	background-color:#c9c9c9;
 	font-family: Arial,sans-serif; 
 	font-size:11pt;
-	margin:60px 0 0 0;
+	margin:62px 0 0 0;
 }
 h3 {
       margin: 0px;
@@ -53,7 +53,7 @@ p {
 
 .card {
 	max-width: 500px;
-	margin:30px auto 0px auto;
+	margin:20px auto 10px auto;
 	background-color: #fafafa;
 	border:1px solid #888888;
 	border-radius:4px;
