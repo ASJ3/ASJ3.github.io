@@ -117,13 +117,12 @@ i {
     font-size: 20px; 
     border-bottom: 1px solid #5b5b5b;
 
-     -webkit-transition: background-color 0.5s; /* For Safari 3.1 to 6.0 */
-    transition: background-color 0.5s;
+    -webkit-transition: background-color 300ms linear; /* For Safari 3.1 to 6.0 */
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
 }
 
-div.cList:focus {
-	background-color: blue; 
-}
+
 
 
 .cIcon {
