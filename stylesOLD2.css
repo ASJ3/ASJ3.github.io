@@ -132,7 +132,6 @@ i {
 	margin: 0px;
 	padding: 0px;
 	overflow: auto;
-	/*background-color: yellow;*/
 }
 
 .cTextTop {
@@ -140,14 +139,6 @@ i {
 	margin: 0px;
 	padding: 0px;
 	/*background-color: red;*/
-}
-
-.cMessageShort {
-	display: block;
-	overflow: hidden;
-	padding: 5px 0 0 0;
-	/*background-color: yellow;*/
-	font-size: 16px;
 }
 
 .cTextBottom {
