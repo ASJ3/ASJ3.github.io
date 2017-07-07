@@ -2,7 +2,7 @@
   <head>
   <title>Avendra Contact</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="jquery.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -24,15 +24,15 @@
 
   <div class="container">
 
-    <div class="cList">
+    <a href="javascript:delay('Destination01.html')"><div class="cList" onclick="chg_bckcolor(this)">
       <div class="cIcon"><i class="fa fa-user-circle" style="font-size: 48px;"aria-hidden="true"></i></div>
-      Jane McMillian<span class="cDate">21:15</span><span class="cMessageShort">You'll have it by tomorrow</span>
+      Jane McMillians<span class="cDate">21:15</span><span class="cMessageShort">You'll have it by tomorrow</span>
       <div style="clear: left;"></div>
-    </div>
+    </div></a>
 
-    <div class="cList">
+    <div class="cList" onclick="this.style.background="#000";>
       <div class="cIcon"><i class="fa fa-user-circle" style="font-size: 48px;"aria-hidden="true"></i></div>
-      Joe Miller<span class="cDate">17:35</span><span class="cMessageShort">Nice meeting you</span>
+      Joe Miller<span class="cDate">17:36</span><span class="cMessageShort">Nice meeting you</span>
       <div style="clear: left;"></div>
     </div>
 
@@ -102,17 +102,25 @@
       <div style="clear: left;"></div>
     </div>
 
-    <div class="cList">
+    <div class="cList" onclick="chg_bckcolor(this)">
       <div class="cIcon"><i class="fa fa-user-circle" style="font-size: 48px;"aria-hidden="true"></i></div>
-      Angela Eberhart<span class="cDate">April 19</span><span class="cMessageShort">Congratulations!</span>
+      Angela Eberhart<span class="cDate">April 17</span><span class="cMessageShort">Congratulations!</span>
       <div style="clear: left;"></div>
-    </div>    
+    </div> 
     
   </div>
 
 
 
 <script>
+function delay (URL) {
+    setTimeout( function() { window.location = URL }, 500 );
+}
+
+function chg_bckcolor(x) {
+    x.style.background="#95ceed";
+}
+
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
 }

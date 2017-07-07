@@ -108,7 +108,7 @@ i {
 .cList {
 	max-width: 500px;
 	margin:3px auto 0px auto;
-	/*width: 100%;*/
+	/*width: 100%; #f7f7f7*/
 	background-color: #f7f7f7; 
 	color: #808080; 
 	font-family: Arial, sans-serif;
@@ -116,7 +116,15 @@ i {
     font-weight: normal; 
     font-size: 20px; 
     border-bottom: 1px solid #5b5b5b;
+
+     -webkit-transition: background-color 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: background-color 0.5s;
 }
+
+div.cList:focus {
+	background-color: blue; 
+}
+
 
 .cIcon {
 	height: 50px;
@@ -127,33 +135,38 @@ i {
 	/*background-color: purple;*/
 	border: 0px solid red;
 }
+
+/*
 .cTextBox {
 	height: 50px;
 	margin: 0px;
 	padding: 0px;
 	overflow: auto;
-	/*background-color: yellow;*/
+	background-color: yellow;
 }
 
 .cTextTop {
 	height: 28px;
 	margin: 0px;
 	padding: 0px;
-	/*background-color: red;*/
-}
-
-.cMessageShort {
-	display: block;
-	overflow: hidden;
-	padding: 5px 0 0 0;
-	/*background-color: yellow;*/
-	font-size: 16px;
+	background-color: red;
 }
 
 .cTextBottom {
 	height: 22px;
 	margin: 0px;
 	padding: 0px;
+	background-color: yellow;
+	font-size: 16px;
+}
+
+*/
+
+.cMessageShort {
+	display: block;
+	overflow: hidden;
+	white-space:nowrap;
+	padding: 5px 0 0 0;
 	/*background-color: yellow;*/
 	font-size: 16px;
 }
@@ -214,6 +227,10 @@ i {
 	margin:0 auto; 
 	/*background-color: #a5b6d3;*/
 
+}
+
+.container a {
+	text-decoration: none;
 }
 /*Margin by pixel:*/
 @media screen and ( max-width: 500px ){
