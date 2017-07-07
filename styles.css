@@ -46,7 +46,7 @@ p {
   	z-index: 1;
   	width: 100%;
 
-	background-color: #fff;
+	background-color: #f2f2f2;
 	height: 38px;
 	padding: 4px 0px;
 
@@ -120,12 +120,11 @@ p {
 }
 
 
-
-
-
-
-
-
+i {
+	font-size:25px; 
+	font-weight: bold; 
+	padding-right: 6px;
+}
 
 
 
@@ -145,9 +144,11 @@ p {
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 22px;
     color: #818181;
     display: block;
+    white-space: nowrap;
+
     transition: 0.3s;
 }
 
@@ -158,21 +159,10 @@ p {
 .sidenav .closebtn {
     position: absolute;
     top: 0;
-    right: 25px;
+    right: 10px;
     font-size: 36px;
     margin-left: 50px;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
