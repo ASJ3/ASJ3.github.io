@@ -18,6 +18,11 @@ p {
 	margin:6px 0px 4px 0px;
 }
 
+i {
+	font-size:25px; 
+	font-weight: bold; 
+	padding-right: 6px;
+}
 
 .topBar {
 	position: fixed;
@@ -95,18 +100,61 @@ p {
 	border-bottom: 3px solid #cb1a0c;
 }
 
-
 .yellow {
 	background-color: #ffd13a; 
 	border-bottom: 3px solid #faac05;
 }
 
-
-i {
-	font-size:25px; 
-	font-weight: bold; 
-	padding-right: 6px;
+.cList {
+	width: 100%; 
+	background-color: #f7f7f7; 
+	color: #808080; 
+	font-family: Arial, sans-serif;
+    padding: 16px 14px; 
+    font-weight: normal; 
+    font-size: 20px; 
+    border-bottom: 1px solid #f0f0f0;
 }
+
+.cIcon {
+	height: 50px;
+	margin: 0px;
+	padding: 0px;	
+	float: left;
+	color: #009aed;
+	/*background-color: purple;*/
+	border: 0px solid red;
+}
+.cTextBox {
+	height: 50px;
+	margin: 0px;
+	padding: 0px;
+	overflow: auto;
+}
+
+.cTextTop {
+	height: 28px;
+	margin: 0px;
+	padding: 0px;
+	/*background-color: red;*/
+}
+
+.cTextBottom {
+	height: 22px;
+	margin: 0px;
+	padding: 0px;
+	/*background-color: yellow;*/
+	font-size: 19px;
+}
+
+.cDate {
+	float:right;
+	font-size: 19px;
+
+}
+
+
+
 
 
 
