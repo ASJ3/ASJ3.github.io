@@ -213,19 +213,34 @@ i {
 	border: 0px solid red;
 }
 
+.cTop {
+	overflow: hidden;
+}
+
+.cTitle {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	/*background-color: yellow;*/
+}
+
+.cDate {
+	float:right;
+	text-align: right;
+	font-size: 16px;
+	width: 85px;
+
+}
+
 .cMessageShort {
 	display: block;
-	overflow: hidden;
+	float:left;
 	white-space:nowrap;
 	padding: 5px 0 0 0;
 	/*background-color: yellow;*/
 	font-size: 16px;
 }
 
-.cDate {
-	float:right;
-	font-size: 16px;
-}
 
 
 
