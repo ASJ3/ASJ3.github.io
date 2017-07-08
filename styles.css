@@ -233,12 +233,12 @@ i {
 }
 
 .cMessageShort {
-	display: block;
-	float:left;
+	overflow: hidden;
 	white-space:nowrap;
 	padding: 5px 0 0 0;
-	/*background-color: yellow;*/
+	background-color: yellow;
 	font-size: 16px;
+	text-overflow: ellipsis;
 }
 
 
