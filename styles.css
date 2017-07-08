@@ -166,7 +166,8 @@ i {
 .lightblue {
 	background-color: #009aed;
 	color:#fff;
-	border-style: inset inset inset outset;
+	/*border-style: inset inset inset outset;*/
+	border-style: solid;
 	border-width: 0 0 8px 8px;
 	border-radius: 0 3px 3px 0;
 	border-color:#009aed #c9c9c9;
@@ -175,7 +176,8 @@ i {
 .white {
 	background-color: #fff;
 	color:#555;
-	border-style: inset;
+	/*border-style: inset;*/
+	border-style: solid;
 	border-width: 0 8px 8px 0;
 	border-radius: 3px 0 0 3px;
 	border-color:#fff #c9c9c9;
