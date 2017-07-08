@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+  <head>
+  <title>Avendra Contact</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="topBar"><div class="menuButton"><span style="font-size:28px; font-variant: small-caps;cursor:pointer" >&nbsp;<a href="index.html"><i class="fa fa-chevron-left" style="font-size:28px;" aria-hidden="true"></i></a></span></div><div class="title">Recommendations</div></div>
+  <div class="container">
+
+   <div class="card">
+      <div class="cardTitle green">
+          <h3>Save an estimated</h3>
+          <h2>$1,557 a year</h2>
+          <h3>by staying in bracket 3</h3>
+      </div>
+
+      <div class="cardText">
+        <p>Each list below indicates the item bought from another supplier (top), and the recommended item available from your Master Food Distributor (bottom).</p>
+        <p>Check all the items that you want to purchase from your MFD in the future</p>
+        <p>This will automatically add these items to your <b>MFD favorite folder in BuyEfficient</b></p>
+        <p><br><b>Water ($52)</b></p>
+        <ul>
+          <li>Fiji Water (12x12.oz) #AZ89000</li>
+          <li>Poland Spring (12x12.oz) #89.675
+          <div class="square" onclick="tickBox(this)"></div>
+        </ul>  
+        <p><b>Disposable Cups ($632)</b></p>
+        <ul>
+          <li>Solo 6oz paper cup (12x60) #JU.879</li>
+          <li>Carter 6oz paper cup (10x100) #67854</li>
+          <div class="square" onclick="tickBox(this)"></div>
+        </ul>
+        <p><b>Plastic / Disposable Gloves ($25)</b></p>
+        <ul>
+          <li>Microflex latex gloves (360) #OPJK</li>
+          <li>Uline latex gloves (240) #88897AB</li>
+          <div class="square" onclick="tickBox(this)"></div>
+        </ul>
+        <p><b>Trash Bags / Can Liners ($23)</b></p>
+        <ul>
+          <li>Scott heavy duty, black (300x30 gal) #008765</li>
+          <li>Glad black trash bags (100x30 gal) #69054</li>
+           <div class="square" onclick="tickBox(this)"></div>
+        </ul>
+        <div class="center"><button class="button">Apply Changes</button></div>
+
+      </div>
+    </div>
+
+  </div>
+  
+
+
+
+<script>
+function tickBox(x) {
+  innerText = x.innerHTML;
+    if (innerText == "") {
+      x.innerHTML = "&#10003;";
+      x.style.background = "#0095e6";
+    }
+    else {
+      x.innerHTML = "";
+      x.style.background = "#ffffff";
+    }
+}
+
+</script>
+  </body></html>

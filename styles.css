@@ -68,6 +68,64 @@ i {
 	box-shadow: 3px 3px 5px grey;
 }
 
+.center {
+	margin: 10px auto 5px;
+	width:140px; 
+}
+
+.button {
+	text-align:center;
+	background-color: #009aed;
+	padding: 8px 10px;
+	
+	border-color: #0085cc;
+	border-radius: 25px;
+	border-width:2px;
+	border-style: solid;
+
+	font-size: 14px;
+	color: white;
+}
+.button:active {
+	background-color: #80d2ff;
+}
+.button:focus {
+	outline:0;
+}
+
+.buttonCheck {
+	margin-left: 40px;
+	text-align:center;
+	background-color: #ffffff;
+	padding: 3px 0px 3px 5px;
+	
+	border-color: grey;
+	border-radius: 4px;
+	border-width:1px;
+	border-style: solid;
+
+	font-size: 16px;
+	color: white;
+}
+.buttonCheck:active {
+	background-color: #009aed;
+}
+.buttonCheck:focus {
+	outline:0;
+}
+
+.square {
+	width:20px; 
+	height: 20px; 
+	background-color: #ffffff; 
+	text-align: center;
+	border:1px solid grey;
+	border-radius: 3px;
+	color: #ffffff;
+	margin: 5px 0px 15px 0;
+
+}
+
 .cardMessage {
 	max-width: 500px;
 	margin:15px auto 15px auto;
