@@ -66,6 +66,28 @@ i {
 	box-shadow: 3px 3px 5px grey;
 }
 
+.cardMessage {
+	max-width: 500px;
+	margin:15px auto 15px auto;
+	padding:0 0 0px 0;
+}
+
+.Message {
+	width: 80%;
+	max-width: 300px; 
+	padding:15px;
+}
+
+.left {
+	float: left;
+	border-radius: 0px 0px 0px 0px;
+}
+
+.right {
+	float: right;
+	border-radius: 10px 10px 0px 10px;
+}
+
 .cardTitle { 
 	padding:10px 6px 6px 6px; 
 	border-radius:3px 3px 0 0;
@@ -103,6 +125,26 @@ i {
 .yellow {
 	background-color: #ffd13a; 
 	border-bottom: 3px solid #faac05;
+}
+
+.lightblue {
+	background-color: #009aed;
+	color:#fff;
+	border-style: inset inset inset outset;
+	/*border:2px solid #888;*/
+	border-width: 0 0 6px 6px;
+	/*border-color: #c9c9c9;*/
+	border-radius: 0 2px 2px 0;
+	border-color:#009aed #c9c9c9;
+}
+
+.white {
+	background-color: #fff;
+	color:#555;
+	border-style: inset;
+	border-width: 0 6px 6px 0;
+	border-radius: 2px 0 0 2px;
+	border-color:#fff #c9c9c9;
 }
 
 .cList {
