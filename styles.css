@@ -93,15 +93,36 @@ i {
 	/*position: fixed;
 	top: 0;
   	left: 0;
+  	height: 40px;
   	z-index: 1;*/
+
   	width: 100%;
 	background-color: #fff;
 	border-radius: 4px;
-	padding: 10px;
-	height: 40px;
+	padding:10px 0;
+	
 	font-size: 28px;
 	color:#999;
 }
+
+.clipIcon {
+	background-color: white;
+	padding-left: 10px;
+	padding-right: 4px;
+	border:0px solid red;
+	float:left;
+}
+.messageReply {
+	background-color: white;
+	border:0px solid red;
+	overflow: hidden;
+}
+.planeIcon {
+	background-color: white;
+	padding-right: 16px;
+	float: right;
+}
+
 
 .cardTitle { 
 	padding:10px 6px 6px 6px; 
