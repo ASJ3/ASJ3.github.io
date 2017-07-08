@@ -49,6 +49,8 @@ i {
 	font-size:28px;
 	overflow:hidden;
 	padding-right:45px;
+	font-weight: normal;
+
 	
 }
 
@@ -74,8 +76,8 @@ i {
 }
 
 .Message {
-	width: 80%;
-	max-width: 300px; 
+	width: 85%;
+	max-width: 350px; 
 	padding:15px;
 }
 
@@ -174,32 +176,6 @@ i {
 	border: 0px solid red;
 }
 
-/*
-.cTextBox {
-	height: 50px;
-	margin: 0px;
-	padding: 0px;
-	overflow: auto;
-	background-color: yellow;
-}
-
-.cTextTop {
-	height: 28px;
-	margin: 0px;
-	padding: 0px;
-	background-color: red;
-}
-
-.cTextBottom {
-	height: 22px;
-	margin: 0px;
-	padding: 0px;
-	background-color: yellow;
-	font-size: 16px;
-}
-
-*/
-
 .cMessageShort {
 	display: block;
 	overflow: hidden;
@@ -216,7 +192,10 @@ i {
 
 
 
-
+.iconContainer {
+	display: inline-block;
+	width: 30px;
+}
 
 
 .sidenav {
@@ -233,7 +212,7 @@ i {
 }
 
 .sidenav a {
-    padding: 8px 8px 8px 24px;
+    padding: 8px 8px 8px 20px;
     text-decoration: none;
     font-size: 22px;
     color: #818181;
