@@ -45,7 +45,7 @@
           <li>Glad black trash bags (100x30 gal) #69054</li>
            <div class="square" onclick="tickBox(this)"></div>
         </ul>
-        <div class="center"><button class="button">Apply Changes</button></div>
+        <div class="center"><button class="button" onclick="saveChanges(this)">Apply Changes</button></div>
 
       </div>
     </div>
@@ -68,5 +68,10 @@ function tickBox(x) {
     }
 }
 
+function saveChanges(x) {
+  x.innerHTML = "Changes Saved";
+  x.style.background = "#95bc3d";
+  x.style.borderColor = "#578c3f";
+}
 </script>
   </body></html>
