@@ -82,14 +82,24 @@ a:active {
 }
 
 .cardTitle_ {
+	display: block;
 	font-size: 20px;
 	font-variant: small-caps;
-	padding:8px 10px 6px 10px; 
+	padding:8px 6px 6px 10px; 
 	color:#313131; 
+	clear: both;
 	/*text-shadow: 1px 1px #6f8c2c;
 	border-radius:10px 10px 0 0;
 	text-align: center;*/
 
+}
+
+.cardTitle_ .text {
+	float:left;
+}
+
+.cardTitle_ .close {
+	float:right;
 }
 
 .center {
@@ -217,7 +227,7 @@ a:active {
 }
 
 .cardText {
-	padding:10px 12px;
+	padding:2px 12px 6px 12px;
 }
 
 .green {
