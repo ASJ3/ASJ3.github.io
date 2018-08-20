@@ -44,7 +44,8 @@ a:active {
   	z-index: 1;
   	width: 100%;
 
-	background-color: #191919;
+	background-color: #000000;
+	/*background-color: #191919*/
 	height: 38px;
 	padding: 4px 0px;
 
