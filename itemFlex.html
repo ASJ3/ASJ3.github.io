@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC ""><html><head>
+<style>
+body {font-family: Tahoma, Arial, sans-serif; font-color: #232323; font-size: 90%;}
+
+.header {
+		width:100%; /*background: blue;*/
+		position: fixed;
+		left:0;
+		top: 0;
+}
+
+.buffer {
+		max-width:1200px; min-width:800px; margin: 0 auto; display: flex; text-align: center; background: white;
+}
+.buffer div { height: 36px; overflow: hidden; font-size: 90%;}
+
+.container-1{ max-width:1200px; min-width:800px; margin: 0 auto; display: flex; text-align: center; background: #fff;} 
+
+.container-1 div { padding: 3px 5px; line-height: 2.6ex; height: 5.0ex; overflow: hidden; font-size: 90%;}
+
+.container-2{ max-width:1200px; min-width:800px; margin: 0 auto; display: flex; text-align: center; background: #d1eac0;} 
+
+.container-2 div { padding: 3px 5px; line-height: 2.6ex; height: 5.0ex; overflow: hidden; font-size: 90%;  
+	border-bottom:#707070 solid 2px;}
+
+.container-1 .checkbox {
+	flex: 2;
+	height: 40px;
+}
+
+.container-1 .catName {
+	flex: 38;
+	text-align: left;
+	font-size: 150%;
+	height:40px;
+}
+
+.one {
+	flex: 2;
+	/*background: lightblue;*/
+}
+
+.two {
+	flex: 9;
+	/*background: lightgray;*/
+}
+
+.three {
+	flex: 5;
+	/*background: yellow;*/
+}
+
+.four {
+	flex: 9;
+	/*background: blue;*/
+}
+
+.five {
+	flex: 4;
+	/*background: purple;*/
+}
+
+.six {
+	flex: 7;
+	/*background: red;*/
+}
+
+.seven {
+	flex: 4;
+	/*background: orange;*/
+}
+
+.bl {
+ 	background: #d9e1f2; border-bottom: #4472c4 solid 1px;
+}
+
+
+
+</style>
+
+<script type="text/javascript">
+function getCheckedCheckboxesFor(checkboxName) {
+    var checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), values = [];
+    Array.prototype.forEach.call(checkboxes, function(el) {
+        values.push(el.value);
+    });
+    document.getElementById("results").innerHTML = values.toString();
+    //return values;
+}
+</script>
+
+
+</head>
+<body>
+
+<div class="header">
+	<div class="container-1">
+		<div class="one bl">&nbsp;</div>
+		<div class="two bl">Supplier Product Description</div>
+		<div class="three bl">Avendra Item Number</div>
+		<div class="four bl">Avendra Item Description</div>
+		<div class="five bl">Supplier ID</div>
+		<div class="six bl">Supplier Name</div>
+		<div class="seven bl">Spend 2 Months Ago</div>
+	</div>
+</div>
+
+
+<div class="buffer">
+	<div class="one">&nbsp;</div>
+	<div class="two">&nbsp;</div>
+	<div class="three">&nbsp;</div>
+	<div class="four">&nbsp;</div>
+	<div class="five">&nbsp;</div>
+	<div class="six">&nbsp;</div>
+	<div class="seven">&nbsp;</div>
+</div>
+
+<div class="container-1">
+	<div class="checkbox bl"><input type='checkbox' name='accept' value='All1'></div>
+	<div class="catName bl">Transfer All Chicken</div>
+</div>
+
+<div class="container-1">
+	<div class="one">&nbsp;</div>
+	<div class="two">CHICKEN PARTY WINGS IQF, 8/5#</div>
+	<div class="three">XFB884568</div>
+	<div class="four">CHICKEN, WINGS, PARTY IQF</div>
+	<div class="five">I3</div>
+	<div class="six">Interbay Food Company</div>
+	<div class="seven">$1,354</div>
+</div>
+<div class="container-2">
+	<div class="one"><input type='checkbox' name='accept' value='1'></div>
+	<div class="two">CHICKEN PARTY WINGS IQF, 8/5#</div>
+	<div class="three">XFB884568</div>
+	<div class="four">CHICKEN, WINGS, PARTY IQF</div>
+	<div class="five">MN</div>
+	<div class="six">US Foods Services</div>
+	<div class="seven">&nbsp;</div>
+</div>
+
+<div class="container-1">
+	<div class="one">&nbsp;</div>
+	<div class="two">AIRLINE BREAST SUNRISE NATURAL FRENCHED KNUCKLE-OF</div>
+	<div class="three">XFB2655445</div>
+	<div class="four">CHICKEN, BREAST, AIRLINE FRENCHED KNUCKLE OFF</div>
+	<div class="five">I3</div>
+	<div class="six">Interbay Food Company</div>
+	<div class="seven">$1,000</div>
+</div>
+<div class="container-2">
+	<div class="one"><input type='checkbox' name='accept' value='2'></div>
+	<div class="two">AIRLINE BREAST SUNRISE NATURAL FRENCHED KNUCKLE-OF</div>
+	<div class="three">XFB2655445</div>
+	<div class="four">CHICKEN, BREAST, AIRLINE FRENCHED KNUCKLE OFF</div>
+	<div class="five">MN</div>
+	<div class="six">US Foods Services</div>
+	<div class="seven">&nbsp;</div>
+</div>
+
+<div class="buffer">
+	<div class="one">&nbsp;</div>
+	<div class="two">&nbsp;</div>
+	<div class="three">&nbsp;</div>
+	<div class="four">&nbsp;</div>
+	<div class="five">&nbsp;</div>
+	<div class="six">&nbsp;</div>
+	<div class="seven">&nbsp;</div>
+</div>
+
+<div class="container-1">
+	<div class="checkbox bl"><input type='checkbox' name='accept' value='All2'></div>
+	<div class="catName bl">Transfer All Bacon</div>
+</div>
+
+<div class="container-1">
+	<div class="one">&nbsp;</div>
+	<div class="two">Bacon PARTY WINGS IQF, 8/5#</div>
+	<div class="three">XFB884568</div>
+	<div class="four">Bacon, WINGS, PARTY IQF</div>
+	<div class="five">I3</div>
+	<div class="six">Interbay Food Company</div>
+	<div class="seven">$1,354</div>
+</div>
+<div class="container-2">
+	<div class="one"><input type='checkbox' name='accept' value='21'></div>
+	<div class="two">Bacon PARTY WINGS IQF, 8/5#</div>
+	<div class="three">XFB884568</div>
+	<div class="four">Bacon, WINGS, PARTY IQF</div>
+	<div class="five">MN</div>
+	<div class="six">US Foods Services</div>
+	<div class="seven">&nbsp;</div>
+</div>
+
+<div class="container-1">
+	<div class="one">&nbsp;</div>
+	<div class="two">AIRLINE Bacon SUNRISE NATURAL FRENCHED KNUCKLE-OF</div>
+	<div class="three">XFB2655445</div>
+	<div class="four">CHICKEN, Bacon, AIRLINE FRENCHED KNUCKLE OFF</div>
+	<div class="five">I3</div>
+	<div class="six">Interbay Food Company</div>
+	<div class="seven">$1,000</div>
+</div>
+<div class="container-2">
+	<div class="one"><input type='checkbox' name='accept' value='22'></div>
+	<div class="two">AIRLINE Bacon SUNRISE NATURAL FRENCHED KNUCKLE-OF</div>
+	<div class="three">XFB2655445</div>
+	<div class="four">CHICKEN, Bacon, AIRLINE FRENCHED KNUCKLE OFF</div>
+	<div class="five">MN</div>
+	<div class="six">US Foods Services</div>
+	<div class="seven">&nbsp;</div>
+</div>
+<div class="container-1">
+	<div class="one"><input type="button" onclick="getCheckedCheckboxesFor('accept');" value="Get" /></div>
+	<div class="two" id="results">&nbsp;</div>
+</div>
+
+
+
+</body>
