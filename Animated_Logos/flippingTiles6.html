@@ -135,15 +135,19 @@
 				
 			}
 			
-
-			counter++;
+			if (counter < 4) {
+				counter++;
+			} else {
+				counter = 2;
+			}
+			
 			// window.alert(counter);
 
 
-			if (counter % 2 == 0) {
+			if (counter !=1) {
 				var finalFolderList = [2, 3, 4];
-				var finalFolder = finalFolderList[Math.floor(Math.random() * finalFolderList.length)];
-
+				//var finalFolder = finalFolderList[Math.floor(Math.random() * finalFolderList.length)];
+				var finalFolder = counter;
 				var backImgTiles = document.getElementsByClassName("backImg");
 
 				for (var j=0;j<backImgTiles.length; j++) {
