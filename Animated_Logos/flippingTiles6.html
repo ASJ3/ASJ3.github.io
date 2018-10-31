@@ -9,6 +9,7 @@
 <script type="text/javascript">
 		var flippedState = false;
 		var counter = 1;
+		var backSwitch = 2;
 
 		$(document).ready(function(){
 			$("#1").flip();
@@ -135,19 +136,18 @@
 				
 			}
 			
-			if (counter < 4) {
+			
 				counter++;
-			} else {
-				counter = 2;
-			}
 			
 			// window.alert(counter);
 
 
-			if (counter !=1) {
+			if (counter %2 == 0) {
+				backSwitch++;				
+				
 				var finalFolderList = [2, 3, 4];
 				//var finalFolder = finalFolderList[Math.floor(Math.random() * finalFolderList.length)];
-				var finalFolder = counter;
+				var finalFolder = backSwitch;
 				var backImgTiles = document.getElementsByClassName("backImg");
 
 				for (var j=0;j<backImgTiles.length; j++) {
@@ -157,6 +157,10 @@
 					backImgTiles[j].src = finalSource;
 
 
+				}
+				
+				if (backSwitch == 4) {
+					backSwitch = 2;
 				}
 
 			}	
