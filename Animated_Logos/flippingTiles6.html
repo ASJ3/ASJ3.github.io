@@ -140,8 +140,9 @@
 			// window.alert(counter);
 
 
-			if (counter == 4) {
-				var finalFolder = 3;
+			if (counter % 2 == 0) {
+				var finalFolderList = [2, 3, 4];
+				var finalFolder = finalFolderList[Math.floor(Math.random() * finalFolderList.length)];
 
 				var backImgTiles = document.getElementsByClassName("backImg");
 
@@ -156,69 +157,7 @@
 
 			}	
 			
-			if (counter == 6) {
-				var finalFolder = 2;
-
-				var backImgTiles = document.getElementsByClassName("backImg");
-
-				for (var j=0;j<backImgTiles.length; j++) {
-					var initialSource = backImgTiles[j].src;
-					var srcLength = initialSource.length;
-					var finalSource = initialSource.substring(0, srcLength - 8) + finalFolder.toString() + initialSource.substring(srcLength - 7, srcLength);
-					backImgTiles[j].src = finalSource;
-
-
-				}
-
-			}
-
-			if (counter == 8) {
-				var finalFolder = 3;
-
-				var backImgTiles = document.getElementsByClassName("backImg");
-
-				for (var j=0;j<backImgTiles.length; j++) {
-					var initialSource = backImgTiles[j].src;
-					var srcLength = initialSource.length;
-					var finalSource = initialSource.substring(0, srcLength - 8) + finalFolder.toString() + initialSource.substring(srcLength - 7, srcLength);
-					backImgTiles[j].src = finalSource;
-
-
-				}
-
-			}
-
-			if (counter == 10) {
-				var finalFolder = 2;
-
-				var backImgTiles = document.getElementsByClassName("backImg");
-
-				for (var j=0;j<backImgTiles.length; j++) {
-					var initialSource = backImgTiles[j].src;
-					var srcLength = initialSource.length;
-					var finalSource = initialSource.substring(0, srcLength - 8) + finalFolder.toString() + initialSource.substring(srcLength - 7, srcLength);
-					backImgTiles[j].src = finalSource;
-
-
-				}
-
-			}
-
-			if (counter == 12) {
-				var finalFolder = 3;
-
-				var backImgTiles = document.getElementsByClassName("backImg");
-
-				for (var j=0;j<backImgTiles.length; j++) {
-					var initialSource = backImgTiles[j].src;
-					var srcLength = initialSource.length;
-					var finalSource = initialSource.substring(0, srcLength - 8) + finalFolder.toString() + initialSource.substring(srcLength - 7, srcLength);
-					backImgTiles[j].src = finalSource;
-
-
-				}
-
-			}
+			
 
 
 		} 
