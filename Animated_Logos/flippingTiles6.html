@@ -9,7 +9,9 @@
 <script type="text/javascript">
 		var flippedState = false;
 		var counter = 1;
-		var backSwitch = 2;
+		var backSwitch = 1;
+		var myVar1;
+		var myVar2;
 
 		$(document).ready(function(){
 			$("#1").flip();
@@ -85,68 +87,73 @@
 			$("#71").flip();
 			$("#72").flip();
 
-			setInterval(function() {flipTiles()}, 4000);
+			setInterval(function() {flipTiles()}, 8000);
 		});
 
 
 	
-		function changeTiles() {
-			// var i;
-			// for (i=1; i<73; i++) {
-			// 	var nextid = "#" + i.toString();
-			// 	$(nextid).flip('toggle');
-
-			// } 
-			setInterval(function() {flipTiles()}, 4000);
-		}
-
-		function helloWorld() {
-			alert('Hello World');
-		}
-
 
 		function flipTiles() {
 			var i;
 
+
 			if (flippedState == false) {
 				flippedState = true;
 				i=0;
+
+				if (myVar2) {
+					
+					console.log("early myVar2 is true");
+					clearInterval(myVar2);
+
+				} 
+
+				if (myVar1) {
+					
+					console.log("early myVar1 is true");
+					clearInterval(myVar1);
+				}
 				
-				setInterval(function(){ 
+				myVar1 = setInterval(function(){ 
 					i++;
 					if (i<73) {
 						var nextid = "#" + i.toString();
 						$(nextid).flip('toggle');
 
-					}						
+					}	else {
+						// console.log(i);
+						console.log("increasing");
+					}					
 				}, 20);
 
 			} else {
 				flippedState= false;
 				i=73;
 
-				setInterval(function(){ 
+				myVar2 = setInterval(function(){ 
 					i--;
 					if (i>0) {
 						var nextid = "#" + i.toString();
 						$(nextid).flip('toggle');
 
-					}						
+					}		else {
+						//console.log("reducing");
+					}					
 				}, 20);
 				
 			}
 			
 			
 				counter++;
-			
-			// window.alert(counter);
 
 
 			if (counter %2 == 0) {
-				backSwitch++;				
-				
+				backSwitch++;			
+				console.log(backSwitch)
+
 				var finalFolderList = [2, 3, 4];
 				//var finalFolder = finalFolderList[Math.floor(Math.random() * finalFolderList.length)];
+
 				var finalFolder = backSwitch;
 				var backImgTiles = document.getElementsByClassName("backImg");
 
@@ -155,12 +162,12 @@
 					var srcLength = initialSource.length;
 					var finalSource = initialSource.substring(0, srcLength - 8) + finalFolder.toString() + initialSource.substring(srcLength - 7, srcLength);
 					backImgTiles[j].src = finalSource;
-
+				
 
 				}
 				
 				if (backSwitch == 4) {
-					backSwitch = 2;
+					backSwitch = 1;
 				}
 
 			}	
