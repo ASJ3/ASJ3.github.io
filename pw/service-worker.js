@@ -17,7 +17,8 @@ self.addEventListener('install', (event) => {
 		'report.html',
 	        'script.js',
 		'styles.css',
-	        'markologosimple.png'
+	        'markologosimple.png',
+		'markoReport2.png'
         ]
       );
     })
