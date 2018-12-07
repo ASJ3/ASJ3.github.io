@@ -11,7 +11,7 @@ self.addEventListener('install', (event) => {
       return cache.addAll(
         [
           '/graph01.html',
-	  '01.png'
+	  '/01.png'
           //'/styles/pirates.css',
           //'/styles/pirates.tff',
           //'/images/i-love-pirates.jpg'
