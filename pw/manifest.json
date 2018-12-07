@@ -1,0 +1,29 @@
+{
+  "short_name": "marko",
+  "name": "marko assistant",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/pw/index.html",
+  "background_color": "#000000",
+  "display": "standalone",
+  "scope": "/pw/",
+  "theme_color": "#000000"
+}
+
+"prefer_related_applications": false,
+"related_applications": [
+  {
+    "platform": "play",
+    "id": "com.google.samples.apps.iosched"
+  }
+]
