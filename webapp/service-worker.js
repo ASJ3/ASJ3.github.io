@@ -10,9 +10,9 @@ self.addEventListener('install', (event) => {
       console.log('browser accepts cache');
       return cache.addAll(
         [
-          '/graph01.html',
-	  '/script.js',
-	  '/01.png'
+          'graph01.html',
+	  'script.js',
+	  '01.png'
           //'/styles/pirates.css',
           //'/styles/pirates.tff',
           //'/images/i-love-pirates.jpg'
