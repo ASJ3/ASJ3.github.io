@@ -11,6 +11,10 @@ self.addEventListener('install', (event) => {
       return cache.addAll(
         [
           'index.html',
+		'optimization1.html',
+		'optimization2.html',
+		'recall.html',
+		'report.html',
 	        'script.js',
 		'styles.css',
 	        'markologosimple.png'
