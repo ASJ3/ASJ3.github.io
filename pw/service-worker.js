@@ -14,11 +14,13 @@ self.addEventListener('install', (event) => {
 		'optimization1.html',
 		'optimization2.html',
 		'recall.html',
+		'transition.html',
 		'report.html',
 	        'script.js',
 		'styles.css',
 	        'markologosimple.png',
-		'markoReport2.png'
+		'markoReport2.png',
+		'burgerMenu.png'
         ]
       );
     })
