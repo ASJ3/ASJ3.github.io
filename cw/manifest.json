@@ -1,7 +1,7 @@
 {
-  "background_color": "purple",
+  "background_color": "black",
   "description": "marko trial",
-  "display": "fullscreen",
+  "display": "standalone",
   "icons": [
     {
       "src": "icon-192.png",
@@ -10,6 +10,6 @@
     }
   ],
   "name": "Marko Intel",
-  "short_name": "MarkoAI",
+  "short_name": "Marko AI",
   "start_url": "/cw/index.html"
 }
