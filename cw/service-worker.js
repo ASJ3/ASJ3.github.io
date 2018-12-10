@@ -15,6 +15,7 @@ self.addEventListener('install', (event) => {
 		'optimization2.html',
 		'recall.html',
 		'report.html',
+		'transition.html',
 	        'script.js',
 		'styles.css',
 	        'markologosimple.png',
