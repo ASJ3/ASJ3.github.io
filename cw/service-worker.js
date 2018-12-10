@@ -6,7 +6,7 @@ self.addEventListener('install', (event) => {
 	  return;
   }
   event.waitUntil(
-    caches.open('version1').then((cache) => {
+    caches.open('cwversion').then((cache) => {
       console.log('browser accepts cache');
       return cache.addAll(
         [
@@ -27,7 +27,9 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request)
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
   );
 });
 
