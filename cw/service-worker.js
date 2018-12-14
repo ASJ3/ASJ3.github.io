@@ -19,7 +19,12 @@ self.addEventListener('install', (event) => {
 	        'script.js',
 		'styles.css',
 	        'markologosimple.png',
-		'markoReport2.png'
+		'markoReport2.png',
+		'symbols/arrows.png',
+		'symbols/barGraph.png',
+		'symbols/burgerNavBlack.png',
+		'symbols/horn.png',
+		'symbols/lineGraph.png'
         ]
       );
     })
