@@ -1,44 +1,88 @@
 <!DOCTYPE html>
-	<head>
-		<title>Offset your CO2 Emissions</title>
-		<link rel="stylesheet" href="style.css">
-		<script>
-			var dollarOffset = isNaN;
-			function calculateOffset() {
-				var result = Number(document.getElementById("quantity").value);
-				if (isNaN(result) || result==0) {
-					document.getElementById("quantity").value="";
-					document.getElementById("message").innerHTML="&nbsp;";
-					dollarOffset = isNaN;
-					alert("Error.\nYou did not enter a valid number.\nPlease try again");
-				}
-				else {
-					dollarOffset = result * 20 / 48 /10;
-					document.getElementById("message").innerHTML = "Paying $" +  dollarOffset.toFixed(2) + " will offset your " + result + " gallons.";
-				}
-			}
+  <head>
+  <title>CO2LUTION</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+        var dollarOffset = isNaN;
+        function calculateOffset() {
+          var result = Number(document.getElementById("quantity").value);
+          if (isNaN(result) || result==0) {
+            document.getElementById("quantity").value="";
+            document.getElementById("message").innerHTML="&nbsp;";
+            dollarOffset = isNaN;
+            alert("Error.\nYou did not enter a valid number.\nPlease try again");
+          }
+          else {
+            dollarOffset = result * 20 / 48 /10;
+            document.getElementById("message").innerHTML = "Paying $" +  dollarOffset.toFixed(2) + " will offset your " + result + " gallons.";
+          }
+        }
 
-			function payOffset() {
-				if (dollarOffset != isNaN) {
-					alert("A payment of $" + dollarOffset.toFixed(2) + " was made.");
-				}
-				
-				
-			}
-			
-		</script>
-	</head>
+        function payOffset() {
+          if (dollarOffset != isNaN) {
+            alert("A payment of $" + dollarOffset.toFixed(2) + " was made.");
+          }
+          
+          
+        }
+  </script>
 
-	<body>
-		<div class="center-screenOLD">
-			<h2>Offset Your Car's CO2 Emissions</h2>	
-			<form>
-				How many gallons did you purchase:<br><br>
-				<input id="quantity" type="text" name="gallons" placeholder="0.00">
-				<br><br>
-				<input type="button" value="Calculate Offset" onclick="calculateOffset()">
-			</form> 
-			<p id="message">&nbsp;</p>
-			<input id="pay" type="button" value="Make Payment" onclick="payOffset()">
-		</div>
-	</body>
+
+
+
+  </head>
+  <body>
+  <div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="index.html"><div class="iconContainer"><i class="fa fa-user-circle" aria-hidden="true"></i></div>User Info</a>
+  <a href="index.html"><div class="iconContainer"><i class="fa fa-cog" aria-hidden="true"></i></div>Settings</a>
+  </div>
+
+
+
+
+
+  <div class="topBar" ><div class="menuButton"><span style="font-size:28px; font-variant: small-caps;cursor:pointer" onclick="openNav()">&nbsp;<i class="fa fa-bars" style="font-size:28px; color: white;" aria-hidden="true"></i></span></div><div class="title"></div></div>
+  <div class="container"> 
+
+    <div class="card" id="report">
+            <div class="cardTitle_ blanc">
+              <a href="#">OFFSET YOUR CAR'S CO2 EMISSIONS</a>
+              
+            </div>
+            <div class="inside">
+            <p>How many gallons did you purchase:</p>
+            <input id="quantity" type="text" name="gallons" placeholder="0.00">
+            <br><br>
+            <input type="button" value="Calculate Offset" onclick="calculateOffset()">
+            <p id="message">&nbsp;</p>
+            <input id="pay" type="button" value="Make Payment" onclick="payOffset()">
+            </div>
+        </div>
+    </div>
+
+
+  
+
+
+
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "270px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+
+function closeCard(id) {
+    document.getElementById(id).style.display = "none";
+
+}
+
+</script>
+  </body></html>
