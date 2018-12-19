@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+	<head>
+		<title>Offset your CO2 Emissions</title>
+		<link rel="stylesheet" href="style.css">
+		<script>
+			var dollarOffset = isNaN;
+			function calculateOffset() {
+				var result = Number(document.getElementById("quantity").value);
+				if (isNaN(result) || result==0) {
+					document.getElementById("quantity").value="";
+					document.getElementById("message").innerHTML="&nbsp;";
+					dollarOffset = isNaN;
+					alert("Error.\nYou did not enter a valid number.\nPlease try again");
+				}
+				else {
+					dollarOffset = result * 20 / 48 /10;
+					document.getElementById("message").innerHTML = "Paying $" +  dollarOffset.toFixed(2) + " will offset your " + result + " gallons.";
+				}
+			}
+
+			function payOffset() {
+				if (dollarOffset != isNaN) {
+					alert("A payment of $" + dollarOffset.toFixed(2) + " was made.");
+				}
+				
+				
+			}
+			
+		</script>
+	</head>
+
+	<body>
+		<div class="center-screen">
+			<h2>Offset Your Car's CO2 Emissions</h2>	
+			<form>
+				How many gallons did you purchase:<br><br>
+				<input id="quantity" type="text" name="gallons" placeholder="0.00">
+				<br><br>
+				<input type="button" value="Calculate Offset" onclick="calculateOffset()">
+			</form> 
+			<p id="message">&nbsp;</p>
+			<input id="pay" type="button" value="Make Payment" onclick="payOffset()">
+		</div>
+	</body>
