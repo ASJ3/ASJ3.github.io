@@ -1,0 +1,22 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: #F0F9FF; /* For browsers that do not support gradients */
+  	/*background-image: linear-gradient(to right, #F0F9FF , #91D6FF);*/ /* Standard syntax (must be last) */
+  	/*display: flex;*/
+
+}
+
+#quantity {
+	text-align: right;
+
+}
+
+.center-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  background-image: linear-gradient(to bottom, #F0F9FF , #91D6FF);
+}
