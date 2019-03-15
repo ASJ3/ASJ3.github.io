@@ -1,28 +1,37 @@
 body {
-	background-color:#535456;
+	/*background-color:#535456;*/
+	background-image: url("backm.png");
+	/*box-shadow: inset 0px 0px 280px #333;*/
+
 	font-family: Arial,sans-serif; 
 	font-size:12pt;
-	margin:62px 0 0 0;
+	margin:50px 0 0 0;
 }
 
 p {
 	line-height: 1.6;
 }
 
+h2 {
+	background-color: white;
+	margin: 0px 0px 20px 0px;
+}
+
 .card {
-	width: 600px;
+	width: 490px;
 	margin: auto;
 	background-color: white;
-	padding: 20px;
+	padding: 55px 65px;
 	border: solid 1px #424344;
 	border-radius: 5px;
 	margin-bottom:40px;
-	box-shadow: 4px 4px 4px #222222;
+	box-shadow: 4px 4px 12px #444;
 }
 
 .header {
 	border-radius: 3px;
-	padding: 6px 14px;
+
+	padding: 7px 14px;
 	font-size: 14pt;
 	font-weight: bold;
 	color: white;
