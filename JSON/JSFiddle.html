@@ -1,0 +1,56 @@
+<!DOCTYPE html> 
+<html> 
+  
+<head> 
+    <title>NEW
+    </title> 
+    <link rel="stylesheet" href="seasons.css">
+    <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+      
+
+    <!-- Script to get JSON file and display its content --> 
+    <script type = "text/javascript" language="javascript"> 
+
+
+
+
+		function array_to_ul(myarray) {
+    var ul_node = $('<ul>');
+    for (var i in myarray) {
+        var li_node = $('<li>');
+        li_node.text(myarray[i]);
+        ul_node.append(li_node);
+    }
+    return ul_node;
+}
+$(document).ready(function () {
+    $.getJSON("seasons.json", function (data) {
+        console.log(data);
+        var seasons_ar = data.seasons;
+        var seasonsul = array_to_ul(seasons_ar);
+        $('#seasons').append(seasonsul);
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </script> 
+   </head> 
+       
+   <body> 
+     <h2>Seasons</h2>
+
+	<div id="seasons"></div>
+        
+   </body> 
+</html> 
