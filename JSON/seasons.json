@@ -1,8 +1,10 @@
 {
   "seasons": [
-    "Spring",
-    "Summer",
-    "Automne",
-    "Winter"
+    "Knife",
+    "Spoon",
+    "Fork",
+    "Plate",
+    "Glass",
+    "Pan"
   ]
 }
