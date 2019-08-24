@@ -1,83 +1,419 @@
 body {
-	background-color:#535456;
-	/*background: linear-gradient(rgba(100, 100, 110, 0.7), rgba(141, 141, 141, 0.0)), url("https://asj3.github.io/backm.png");*/
-	/*box-shadow: inset 0px 0px 280px #333;*/
-
+	background-color:#464646;
 	font-family: Arial,sans-serif; 
-	font-size:12pt;
-	margin:50px 0 0 0;
+	font-size:11pt;
+	margin:62px 0 0 0;
 }
 
 h3 {
-	text-transform: uppercase;
+      margin: 0px;
+}
+h2 {
+      margin: 0px;
+}
+ul	{
+	margin:0 0 3px 0;
 
 }
-.card {
-	width: 390px;
-	margin: auto;
-	background-color: white;
-	padding: 5px 45px 20px 45px;
-	border: solid 1px #424344;
-	border-radius: 5px;
-	margin-bottom:40px;
-	box-shadow: 4px 4px 12px #444;
+p {
+	margin:6px 0px 4px 0px;
 }
 
-.cardTop {
-	width: 390px;
-	margin: auto;
-	/*background-color: #EBF7FC;*/
-	background: rgb(184,219,235);
-	background: linear-gradient(90deg, rgba(179,222,241,1) 0%, rgba(191,229,246,1) 25%, rgba(235,247,252,1) 100%);
-	padding: 5px 45px 5px 45px;
-	border-top: solid 1px #424344;
-	border-right: solid 1px #424344;
-	border-left: solid 1px #424344;
-	border-bottom: solid 0px #bfe5f6;
-	border-radius: 5px 5px 0px 0px;
-	/*margin-bottom:40px;
-	box-shadow: 4px 4px 12px #444;*/
+i {
+	font-size:25px; 
+	font-weight: bold; 
+	padding-right: 6px;
 }
 
-.cardBottom {
-	width: 390px;
-	margin: auto;
-	background-color: white;
-	padding: 5px 45px 20px 45px;
-	border-bottom: solid 1px #424344;
-	border-right: solid 1px #424344;
-	border-left: solid 1px #424344;
-	border-radius: 0px 0px 5px 5px;
-	margin-bottom:40px;
-	/*box-shadow: 4px 4px 12px #444;*/
+a:link {
+	color: black;
 }
 
-.nav {
-	position:absolute;
-	top: 20px;
-	left: 20px;
-	width: 20px;
-	height: 20px;
-	background-color: blue;
-	border: solid 1px #424344;
-	border-radius: 5px;
+a:visited {
+	color: black;
 }
 
-.yellowcard {
-	width: 390px;
-	height: 500px;
-	padding: 55px 65px;
-	border: solid 1px #424344;
-	border-radius: 5px;
-	margin-bottom:40px;
-	box-shadow: 4px 4px 12px #444;
-	background-color: yellow;
-	position: absolute;
-  	left: 0px;
-  	right: 0px;
-  	margin: auto;
-  	top: 50px;
+a:active {
+	color: black;
+}
+
+.topBar {
+	position: fixed;
+  	top: 0;
+  	left: 0;
   	z-index: 1;
-  	display: none;
+  	width: 100%;
+
+	background-color: #191919;
+	height: 38px;
+	padding: 4px 0px;
+
+	/*text-align: center;*/
+	line-height:38px;
+	font-size: 16pt;
+	font-weight: bold;
+
+	border-bottom:1px solid #191919;
+	box-shadow: 0px 4px 6px black;
+}
+
+.title {
+	text-align: center;
+	font-family: 'Muli', sans-serif;
+	font-size:28px;
+	overflow:hidden;
+	padding-right:45px;
+	color: white;
+	/*font-weight: normal;*/
+
+	
+}
+
+.menuButton {
+	float:left;
+}
+
+.card {
+	max-width: 500px;
+	margin:15px auto 18px auto;
+	background-color: #fafafa;
+	border:1px solid #eaeaea;
+	/*border:1px solid #888888;*/
+	border-radius:14px;
+	overflow: hidden;
+	padding:0 0 0px 0;
+	box-shadow: 2px 2px 3px #1c1c1c;
+}
+
+.cardTitle_ {
+	display: block;
+	font-size: 20px;
+	font-variant: small-caps;
+	padding:8px 6px 6px 10px; 
+	color:#313131; 
+	clear: both;
+	/*text-shadow: 1px 1px #6f8c2c;
+	border-radius:10px 10px 0 0;
+	text-align: center;*/
+
+}
+
+.cardTitle_ .text {
+	float:left;
+}
+
+.cardTitle_ .close {
+	float:right;
+}
+
+.center {
+	margin: 10px auto 5px;
+	width:140px; 
+}
+
+.button {
+	text-align:center;
+	background-color: #009aed;
+	padding: 8px 10px;
+	
+	border-color: #0085cc;
+	border-radius: 25px;
+	border-width:2px;
+	border-style: solid;
+
+	font-size: 14px;
+	color: white;
+}
+.button:active {
+	background-color: #80d2ff;
+}
+.button:focus {
+	outline:0;
+}
+
+.buttonCheck {
+	margin-left: 40px;
+	text-align:center;
+	background-color: #ffffff;
+	padding: 3px 0px 3px 5px;
+	
+	border-color: grey;
+	border-radius: 4px;
+	border-width:1px;
+	border-style: solid;
+
+	font-size: 16px;
+	color: white;
+}
+.buttonCheck:active {
+	background-color: #009aed;
+}
+.buttonCheck:focus {
+	outline:0;
+}
+
+.square {
+	width:20px; 
+	height: 20px; 
+	background-color: #ffffff; 
+	text-align: center;
+	border:1px solid grey;
+	border-radius: 3px;
+	color: #ffffff;
+	margin: 5px 0px 15px 0;
+
+}
+
+.cardMessage {
+	max-width: 500px;
+	margin:15px auto 15px auto;
+	padding:0 0 0px 0;
+	font-size:18px;
+}
+
+.Message {
+	width: 85%;
+	max-width: 350px; 
+	padding:15px;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.messageBox {
+	/*position: fixed;
+	top: 0;
+  	left: 0;
+  	height: 40px;
+  	z-index: 1;*/
+
+  	width: 100%;
+	background-color: #fff;
+	border-radius: 4px;
+	padding:10px 0;
+	
+	font-size: 28px;
+	color:#999;
+}
+
+.clipIcon {
+	background-color: white;
+	padding-left: 10px;
+	padding-right: 4px;
+	border:0px solid red;
+	float:left;
+}
+.messageReply {
+	background-color: white;
+	border:0px solid red;
+	overflow: hidden;
+}
+.planeIcon {
+	background-color: white;
+	padding-right: 16px;
+	float: right;
+}
+
+
+.cardTitle { 
+	padding:10px 6px 6px 6px; 
+	/*border-radius:10px 10px 0 0;*/
+	text-align: center; 
+	color:#fff; 
+	font-variant: small-caps; 
+	text-shadow: 1px 1px #6f8c2c;
+	
+}
+
+.cardText {
+	padding:2px 12px 6px 12px;
+}
+
+.green {
+	background-color: #95bc3d;
+	border-bottom:3px solid #578c3f; 
+}
+
+.blanc {
+	background-color: #ffffff;
+	border-bottom:1px solid #e5e5e5; 
+	#d25151
+}
+
+.rouge {
+	background-color: #d25151;
+	border-bottom:1px solid #e5e5e5; 
+	color: white;
+}
+
+.blue { 
+	background-color: #466fc7; 
+	border-bottom: 3px solid #046c87;
+}
+
+.purple {
+	background-color: #886886; 
+	border-bottom: 3px solid #690075;
+}
+
+.red {
+	background-color: #d25151; 
+	border-bottom: 3px solid #cb1a0c;
+}
+
+.yellow {
+	background-color: #ffd13a; 
+	border-bottom: 3px solid #faac05;
+}
+
+.lightblue {
+	background-color: #009aed;
+	color:#fff;
+	/*border-style: inset inset inset outset;*/
+	border-style: solid;
+	border-width: 0 0 8px 8px;
+	border-radius: 0 3px 3px 0;
+	border-color:#009aed #c9c9c9;
+}
+
+.white {
+	background-color: #fff;
+	color:#555;
+	/*border-style: inset;*/
+	border-style: solid;
+	border-width: 0 8px 8px 0;
+	border-radius: 3px 0 0 3px;
+	border-color:#fff #c9c9c9;
+}
+
+.cList {
+	max-width: 500px;
+	margin:3px auto 0px auto;
+	/*width: 100%; #f7f7f7*/
+	background-color: #f7f7f7; 
+	color: #808080; 
+	font-family: Arial, sans-serif;
+    padding: 16px 14px; 
+    font-weight: normal; 
+    font-size: 20px; 
+    border-bottom: 1px solid #5b5b5b;
+
+    -webkit-transition: background-color 300ms linear; /* For Safari 3.1 to 6.0 */
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
+}
+
+
+
+
+.cIcon {
+	height: 50px;
+	margin: 0px;
+	padding: 0px;	
+	float: left;
+	color: #009aed;
+	/*background-color: purple;*/
+	border: 0px solid red;
+}
+
+.cTop {
+	overflow: hidden;
+}
+
+.cTitle {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	/*background-color: yellow;*/
+}
+
+.cDate {
+	float:right;
+	text-align: right;
+	font-size: 16px;
+	width: 85px;
+}
+
+.cMessageShort {
+	overflow: hidden;
+	white-space:nowrap;
+	padding: 5px 0 0 0;
+	font-size: 16px;
+	text-overflow: ellipsis;
+
+}
+
+
+
+
+.iconContainer {
+	display: inline-block;
+	width: 30px;
+}
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 20px;
+    text-decoration: none;
+    font-size: 22px;
+    color: #818181;
+    display: block;
+    white-space: nowrap;
+
+    transition: 0.3s;
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+
+
+
+
+
+
+.container
+{	
+	max-width: 1100px;
+	margin:0 auto; 
+	/*background-color: #a5b6d3;*/
+
+}
+
+.container a {
+	text-decoration: none;
+}
+/*Margin by pixel:*/
+@media screen and ( max-width: 500px ){
+    .container{
+        margin:0 3%;
+    }
 }
 
