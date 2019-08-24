@@ -2,26 +2,31 @@
 <html> 
   
 <head> 
-    <title>NEWER
+    <title>Feed
     </title> 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles3.css">
     <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
       
 
     <!-- Script to get JSON file and display its content --> 
     <script type = "text/javascript" language="javascript"> 
+            var detailsArray = [];
+            
 		function array_to_ul(myarray) {
             var listCards = "";
+            
             for (var i in myarray) {
                 //var object = JSON.parse(myarray[i]);
-                listCards += '<div class="capsule" id="' + i + '" onclick="showFunction()"><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].content + '</div></div>';
+                listCards += '<div class="capsule" id="' + i + '" onclick="showFunction(' + i + ')"><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].content + '</div></div>';
+                detailsArray.push(myarray[i].details);
             }
+            console.log(detailsArray);
             return listCards;
         }
 
 
         $(document).ready(function () {
-            $.getJSON("https://asj3.github.io/JSON/content.json", function (data) {
+            $.getJSON("https://asj3.github.io/JSON/cardContent2.json", function (data) {
                 console.log(data);
                 var cardRec = data.recommendations;
                 var cards = array_to_ul(cardRec);
@@ -31,7 +36,8 @@
         });
 
 
-        function showFunction() {
+        function showFunction(i) {
+          document.getElementById("details").innerHTML = detailsArray[i];
           $("#details").fadeIn(200);
         }
 
@@ -44,8 +50,8 @@
        
   <body id="content"> 
         <div class="yellowcard" id="details" onclick="hideFunction()"">
-            <h3>OPTIMIZATION</h3>
-            <p>Here are more details about this</p>
+            <!--<h3>OPTIMIZATION</h3>
+            <p>Here are more details about this</p>-->
         </div>
         <!--<div class="card"><h3>Reports</h3><p>Here are your reports for the month.</p></div>
         <div class="capsule">
