@@ -50,7 +50,7 @@ p {
 }
 
 .capsule {
-	width: 480px;
+	max-width: 500px;
 	margin: auto;
 	background-color: white;
 	padding: 0px;
@@ -67,7 +67,7 @@ p {
 	margin-bottom: 0px;
 	margin-top: 0px;
 	/*background-color: #EBF7FC;*/
-	padding: 15px 0px 12px 0px;
+	padding: 17px 0px 14px 0px;
 	/*border-top: solid 1px #424344;
 	border-right: solid 1px #424344;
 	border-left: solid 1px #424344;*/
@@ -156,7 +156,7 @@ p {
 
 
 .detailsCard {
-	width: 480px;
+	max-width: 500px;
 	margin: auto;
 	background-color: white;
 	height: 500px;
@@ -186,3 +186,12 @@ p {
 	box-shadow: 4px 4px 12px #444;
 }
 
+/*Margin by pixel:*/
+@media screen and ( max-width: 500px ){
+    .capsule {
+        margin:0px 3% 20px 3%;
+    }
+    .detailsCard {
+        margin:0px 3% 20px 3%;
+    }
+}
