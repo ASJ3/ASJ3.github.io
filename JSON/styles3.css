@@ -1,0 +1,156 @@
+body {
+	background-color:#535456;
+	/*background: linear-gradient(rgba(100, 100, 110, 0.7), rgba(141, 141, 141, 0.0)), url("https://asj3.github.io/backm.png");*/
+	/*box-shadow: inset 0px 0px 280px #333;*/
+
+	font-family: Arial,sans-serif; 
+	font-size:12pt;
+	margin:50px 0 0 0;
+}
+
+h3 {
+	text-transform: uppercase;
+	margin: 0px 45px;
+}
+
+p {
+	margin: 6px 45px 6px 45px;
+}
+
+.green {
+	background: rgb(151,219,113);
+	background: linear-gradient(90deg, rgba(151,219,113,1) 0%, rgba(171,230,139,1) 50%, rgba(219,245,202,1) 100%);
+
+}
+
+.brightBlue {	
+	background: rgb(127,204,246);
+	background: linear-gradient(90deg, rgba(127,204,246,1) 0%, rgba(180,233,249,1) 50%, rgba(233,247,254,1) 100%);
+}
+
+.blue {
+	background: rgb(184,219,235);
+	background: linear-gradient(90deg, rgba(179,222,241,1) 0%, rgba(191,229,246,1) 50%, rgba(235,247,252,1) 100%);
+}
+
+.red {
+	background: rgb(212,113,113);
+	background: linear-gradient(90deg, rgba(212,113,113,1) 0%, rgba(228,164,164,1) 50%, rgba(249,229,229,1) 100%);
+}
+
+.card {
+	width: 390px;
+	margin: auto;
+	background-color: white;
+	padding: 5px 45px 20px 45px;
+	border: solid 1px #424344;
+	border-radius: 5px;
+	margin-bottom:40px;
+	box-shadow: 4px 4px 12px #444;
+}
+
+.capsule {
+	width: 480px;
+	margin: auto;
+	background-color: white;
+	padding: 0px;
+	border: solid 1px #424344;
+	border-radius: 5px;
+	margin-bottom:40px;
+	box-shadow: 4px 4px 12px #444;
+}
+
+.cTop {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	/*background-color: #EBF7FC;*/
+	padding: 11px 0px 8px 0px;
+	/*border-top: solid 1px #424344;
+	border-right: solid 1px #424344;
+	border-left: solid 1px #424344;*/
+	border-radius: 5px 5px 0px 0px;
+}
+
+.cBottom {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	background-color: white;
+	padding: 5px 0px 5px 0px;
+	/*border-bottom: solid 1px #424344;
+	border-right: solid 1px #424344;
+	border-left: solid 1px #424344;*/
+	border-radius: 0px 0px 5px 5px;
+}
+
+.cardTop {
+	width: 390px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	/*background-color: #EBF7FC;*/
+	background: rgb(184,219,235);
+	background: linear-gradient(90deg, rgba(179,222,241,1) 0%, rgba(191,229,246,1) 25%, rgba(235,247,252,1) 100%);
+	padding: 7px 45px 4px 45px;
+	border-top: solid 1px #424344;
+	border-right: solid 1px #424344;
+	border-left: solid 1px #424344;
+	border-radius: 5px 5px 0px 0px;
+	/*
+	
+	
+	margin-bottom:40px;
+	box-shadow: 4px 4px 12px #444;*/
+}
+
+.cardBottom {
+	width: 390px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	background-color: white;
+	padding: 5px 45px 5px 45px;
+	border-bottom: solid 1px #424344;
+	border-right: solid 1px #424344;
+	border-left: solid 1px #424344;
+	border-radius: 0px 0px 5px 5px;
+	margin-bottom:40px;
+	/*box-shadow: 4px 4px 12px #444;*/
+}
+
+.nav {
+	position:absolute;
+	top: 20px;
+	left: 20px;
+	width: 20px;
+	height: 20px;
+	background-color: blue;
+	border: solid 1px #424344;
+	border-radius: 5px;
+}
+
+.yellowcard {
+	width: 390px;
+	height: 500px;
+	padding: 45px 45px;
+	border: solid 1px #424344;
+	border-radius: 5px;
+	margin-bottom:40px;
+	box-shadow: 4px 4px 12px #444;
+	background-color: #f2f2f2;
+	position: absolute;
+  	left: 0px;
+  	right: 0px;
+  	margin: auto;
+  	top: 50px;
+  	z-index: 1;
+  	display: none;
+}
+
