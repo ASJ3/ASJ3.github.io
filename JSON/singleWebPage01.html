@@ -2,7 +2,7 @@
 <html> 
   
 <head> 
-    <title>Feed
+    <title>New3
     </title> 
     <link rel="stylesheet" href="styles3.css">
     <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
@@ -11,37 +11,38 @@
     <!-- Script to get JSON file and display its content --> 
     <script type = "text/javascript" language="javascript"> 
             var detailsArray = [];
+            var detailedArray = [];
             
-		function array_to_ul(myarray) {
+        function array_to_ul(myarray) {
             var listCards = "";
-            
+
             for (var i in myarray) {
+                var singleCardArray = [];
                 //var object = JSON.parse(myarray[i]);
                 listCards += '<div class="capsule" id="' + i + '" onclick="showFunction(' + i + ')"><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].content + '</div></div>';
                 detailsArray.push(myarray[i].details);
+
+                singleCardArray.push(myarray[i].title);
+                singleCardArray.push(myarray[i].details);
+                detailedArray.push(singleCardArray);
             }
-            console.log(detailsArray);
+            console.log(detailedArray);
             return listCards;
         }
-
-
         $(document).ready(function () {
             $.getJSON("https://asj3.github.io/JSON/cardContent2.json", function (data) {
                 console.log(data);
                 var cardRec = data.recommendations;
                 var cards = array_to_ul(cardRec);
-
                 $('#content').append(cards);
             });
         });
-
-
         function showFunction(i) {
-          document.getElementById("details").innerHTML = detailsArray[i];
+          document.getElementById("detailsTitle").innerHTML = detailedArray[i][0];
+          document.getElementById("detailsContent").innerHTML = detailedArray[i][1];
+          //document.getElementById("detailsContent").innerHTML = detailsArray[i];
           $("#details").fadeIn(200);
         }
-
-
         function hideFunction() {
           $("#details").fadeOut (200);
         }
@@ -49,7 +50,9 @@
    </head> 
        
   <body id="content"> 
-        <div class="yellowcard" id="details" onclick="hideFunction()"">
+        <div class="detailsCard" id="details" onclick="hideFunction()"">
+            <div class="cTop brightBlue"><h3 id="detailsTitle"></h3></div>
+            <div class="cBottom" id="detailsContent"></div>
             <!--<h3>OPTIMIZATION</h3>
             <p>Here are more details about this</p>-->
         </div>
@@ -60,4 +63,3 @@
         </div>
         --> 
   </body> 
-</html> 
