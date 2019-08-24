@@ -1,0 +1,67 @@
+{
+  "recommendations": 
+      [
+      {
+        "title": "optimization",
+	      "color": "green",
+        "content": "<p>Save an estimated $1,557 a year by staying in bracket 3 of your Master Food Distributor</p><p>I found a few items to help you achieve that goal.</p>",
+        "details": "<p>Each list below indicates the item bought from another supplier (top), and the recommended item available from your Master Food Distributor (bottom).</p><p>Check all the items that you want to purchase from your MFD in the future</p><p>This will automatically add these items to your <b>MFD favorite folder in BuyEfficient</b></p>
+        <p><br><b>Water ($52)</b></p><ul>
+          <li>Fiji Water (12x12.oz) #AZ89000</li>
+          <li>Poland Spring (12x12.oz) #89.675
+          <div class="square" onclick="tickBox(this)"></div></li></ul>  
+        <p><b>Disposable Cups ($632)</b></p><ul>
+          <li>Solo 6oz paper cup (12x60) #JU.879</li>
+          <li>Carter 6oz paper cup (10x100) #67854</li>
+          <div class="square" onclick="tickBox(this)"></div></ul>
+        <p><b>Plastic / Disposable Gloves ($25)</b></p><ul>
+          <li>Microflex latex gloves (360) #OPJK</li>
+          <li>Uline latex gloves (240) #88897AB</li>
+          <div class="square" onclick="tickBox(this)"></div></ul>
+        <p><b>Trash Bags / Can Liners ($23)</b></p><ul>
+          <li>Scott heavy duty, black (300x30 gal) #008765</li>
+          <li>Glad black trash bags (100x30 gal) #69054</li>
+           <div class="square" onclick="tickBox(this)"></div></ul>"
+      },
+      {
+        "title": "recall",
+	      "color": "red",
+        "content": "<p>Some Ed Dawn products sold between June and July 2018 tested positive with salmonella</p>",
+        "details": "<p><b>The following products tested positive with salmonella. Although very few products tested positive, Ed Dawn has decided to recall all products that were purchased between 06/01/2017 and 06/17/2017</b></p>
+        <ul><li>Romaine Lettuce (#000456)</li>
+            <li>Tomatoes (#565784)</li>
+            <li>Celery Stick (#333897)</li>
+            <li>Cucumbers (#763994)</li></ul>
+        <p>If any of the products you purchased from Ed Dawn is among the list above, please contact Ed Dawn's recall hotline:</p><p>(800)-654-3999</p>"
+      },
+      {
+        "title": "optimization",
+	      "color": "green",
+        "content":  "<p>You could save up to 60&#37; on certain items by changing to a similar-spec item.</p><p>I created a list of potential opportunities.</p>",
+        "details": "<p>Each list below indicates the item bought over the last 6 months (top), and the cheaper equivalent item from your Master Food Distributor (bottom).</p>
+        <p>Check all the items that you want to switch. This will automatically add these items to your <b>MFD favorite folder in BuyEfficient</b></p>
+        <p><br><b>12oz Water Bottles (15&#37; savings)</b></p>
+        <ul><li>Fiji Water (12x12.oz) #AZ89000</li>
+          <li>Poland Spring (12x12.oz) #89.675
+          <div class="square" onclick="tickBox(this)"></div></li></ul>  
+        <p><b>Disposable Cups (17&#37; savings)</b></p>
+        <ul><li>Solo 6oz paper cup (12x60) #JU.879</li>
+          <li>Carter 6oz paper cup (10x100) #67854</li>
+          <div class="square" onclick="tickBox(this)"></div></ul>
+        <p><b>Plastic / Disposable Gloves (60&#37; savings)</b></p>
+        <ul><li>Microflex latex gloves (360) #OPJK</li>
+          <li>Uline latex gloves (240) #88897AB</li>
+          <div class="square" onclick="tickBox(this)"></div></ul>
+        <p><b>Trash Bags / Can Liners (5&#37; savings)</b></p>
+        <ul><li>Scott heavy duty, black (300x30 gal) #008765</li>
+          <li>Glad black trash bags (100x30 gal) #69054</li>
+           <div class="square" onclick="tickBox(this)"></div></ul>"
+      },
+      {
+        "title": "supplier transition",
+	      "color": "blue",
+        "content": "<p>Beginning August 2018, Sysco will be replaced by US Foods as your Master Food Distributor.</p><p>Here is how to contact your supplier rep.</p>",
+        "details": "<p><b>Beginning August 2018, Sysco will no longer be the designated Avendra supplier for Master Food Distributor</b></p><p>A new ordering list will be sent to you to help you with the transition</p><p>To ensure the transition is complete, I will monitor your MFD spend and will inform you if I find anything that needs your attention.</p>"
+      }
+      ]
+}
