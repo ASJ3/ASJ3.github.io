@@ -1,0 +1,29 @@
+{
+  "recommendations": 
+      [
+      {
+        "title": "optimization",
+	      "color": "green",
+        "content": "<p>Save an estimated $1,557 a year by staying in bracket 3 of your Master Food Distributor</p><p>I found a few items to help you achieve that goal.</p>",
+        "id": "C001"
+        },
+      {
+        "title": "product recall",
+	      "color": "red",
+        "content": "<p>Some Ed Dawn products sold between June and July 2018 tested positive with salmonella</p>",
+        "id": "C002"
+        },
+      {
+        "title": "optimization",
+	      "color": "green",
+        "content":  "<p>You could save up to 60&#37; on certain items by changing to a similar-spec item.</p><p>I created a list of potential opportunities.</p>",
+        "id": "C003"
+        },
+      {
+        "title": "supplier transition",
+	      "color": "blue",
+        "content": "<p>Beginning August 2018, Sysco will be replaced by US Foods as your Master Food Distributor.</p><p>Here is how to contact your supplier rep.</p>",
+        "id": "C004"
+        }
+      ]
+}
