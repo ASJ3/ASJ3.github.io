@@ -5,7 +5,7 @@
       {
         "title": "optimization",
 	"color": "green",
-        "id": "C001",
+        "id": "C004",
         "details": "<p>Each list below indicates the item bought from another supplier (top), and the recommended item available from your Master Food Distributor (bottom).</p><p>Check all the items that you want to purchase from your MFD in the future</p><p>This will automatically add these items to your <b>MFD favorite folder in BuyEfficient</b></p>"
       },
       {
@@ -23,7 +23,7 @@
       {
         "title": "supplier transition",
 	      "color": "blue",
-        "id": "C004",
+        "id": "C001",
         "details": "<p><b>Beginning August 2018, Sysco will no longer be the designated Avendra supplier for Master Food Distributor</b></p><p>A new ordering list will be sent to you to help you with the transition</p><p>To ensure the transition is complete, I will monitor your MFD spend and will inform you if I find anything that needs your attention.</p>"
       }
       ]
