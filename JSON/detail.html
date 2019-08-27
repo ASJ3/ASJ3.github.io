@@ -1,0 +1,56 @@
+<!DOCTYPE html> 
+<html> 
+  
+<head> 
+    <title>Detailed Info
+    </title> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles3.css">
+    <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+      
+
+    <!-- Script to get JSON file and display its content --> 
+    <script type = "text/javascript" language="javascript"> 
+
+        var idSelector = "";
+        
+        // Extracting the info we want to display based on the id passed in the url, which is stored in idSelector    
+        function extractRec(myarray) {
+            var listCards = "";
+
+            for (var i in myarray) {
+                // if the id is equal to the id passed in the url, then use JSON file to retrieve 
+                // the relevant info to display on screen, then break out of the loop
+                if (myarray[i].id == idSelector) {
+                    listCards = '<div class="capsule" id="details" onclick="location.href = &#39;singleWebPage01.html&#39;"><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].details + '</div></div>';
+                    break;
+                }
+            }
+            return listCards;
+        }
+
+        $(document).ready(function () {
+            $.getJSON("https://asj3.github.io/JSON/cardContent4.json", (data) => {
+                console.log(data);
+                // Getting the id located in the url
+                idSelector = location.search.slice(1);
+
+                var cardRec = data.recommendations;
+                var detailedRec = extractRec(cardRec);
+                $('#content').append(detailedRec);
+            });
+        });
+
+      </script> 
+   </head> 
+       
+  <body id="content"> 
+        <!--<div class="capsule" id="details">
+            <div class="cTop brightBlue"><h3 id="detailsTitle">Optimization</h3></div>
+            <div class="cBottom" id="detailsContent"><p>Here are the details</p></div>
+            <h3>OPTIMIZATION</h3>
+            <p>Here are more details about this</p>-->
+        </div>
+
+  </body> 
