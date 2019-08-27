@@ -2,7 +2,7 @@
 <html> 
   
 <head> 
-    <title>New3
+    <title>Cards
     </title> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,19 +20,19 @@
 
             for (var i in myarray) {
                 var singleCardArray = [];
-                //var object = JSON.parse(myarray[i]);
-                listCards += '<div class="capsule" id="' + i + '" onclick="showFunction(' + i + ')"><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].content + '</div></div>';
+                listCards += '<div class="capsule" id="' + i + '" onclick="location.href = &#39;details.html&#63;' + myarray[i].id + '&#39;"><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].content + '</div></div>';
                 detailsArray.push(myarray[i].details);
 
+
                 singleCardArray.push(myarray[i].title);
-                singleCardArray.push(myarray[i].details);
+                singleCardArray.push(myarray[i].id);
                 detailedArray.push(singleCardArray);
             }
             console.log(detailedArray);
             return listCards;
         }
         $(document).ready(function () {
-            $.getJSON("https://asj3.github.io/JSON/cardContent2.json", function (data) {
+            $.getJSON("https://asj3.github.io/JSON/cardContent3.json", (data) => {
                 console.log(data);
                 var cardRec = data.recommendations;
                 var cards = array_to_ul(cardRec);
@@ -40,10 +40,11 @@
             });
         });
         function showFunction(i) {
-          document.getElementById("detailsTitle").innerHTML = detailedArray[i][0];
-          document.getElementById("detailsContent").innerHTML = detailedArray[i][1];
+            console.log(detailedArray[i][1]);
+          //document.getElementById("detailsTitle").innerHTML = detailedArray[i][0];
+          //document.getElementById("detailsContent").innerHTML = detailedArray[i][1];
           //document.getElementById("detailsContent").innerHTML = detailsArray[i];
-          $("#details").fadeIn(200);
+          //$("#details").fadeIn(200);
         }
         function hideFunction() {
           $("#details").fadeOut (200);
@@ -52,11 +53,9 @@
    </head> 
        
   <body id="content"> 
-        <div class="detailsCard" id="details" onclick="hideFunction()"">
+        <div class="detailsCard" id="details" onclick="hideFunction()">
             <div class="cTop brightBlue"><h3 id="detailsTitle"></h3></div>
             <div class="cBottom" id="detailsContent"></div>
-            <!--<h3>OPTIMIZATION</h3>
-            <p>Here are more details about this</p>-->
         </div>
         <!--<div class="card"><h3>Reports</h3><p>Here are your reports for the month.</p></div>
         <div class="capsule">
