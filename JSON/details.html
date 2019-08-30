@@ -12,13 +12,11 @@
 
     <!-- Script to get JSON file and display its content --> 
     <script type = "text/javascript" language="javascript"> 
-
         var idSelector = "";
         
         // Extracting the info we want to display based on the id passed in the url, which is stored in idSelector    
         function extractRec(myarray) {
             var listCards = "";
-
             for (var i in myarray) {
                 // if the id is equal to the id passed in the url, then use JSON file to retrieve 
                 // the relevant info to display on screen, then break out of the loop
@@ -29,23 +27,21 @@
             }
             return listCards;
         }
-
         $(document).ready(function () {
             $.getJSON("https://asj3.github.io/JSON/cardContent4.json", (data) => {
                 console.log(data);
                 // Getting the id located in the url
                 idSelector = location.search.slice(1);
-
                 var cardRec = data.recommendations;
                 var detailedRec = extractRec(cardRec);
                 $('#content').append(detailedRec);
             });
         });
-
       </script> 
    </head> 
        
   <body id="content"> 
+	<div class="topBar" ><div class="title">&nbsp;</div></div>
         <!--<div class="capsule" id="details">
             <div class="cTop brightBlue"><h3 id="detailsTitle">Optimization</h3></div>
             <div class="cBottom" id="detailsContent"><p>Here are the details</p></div>
