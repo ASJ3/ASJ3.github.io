@@ -50,15 +50,33 @@
    </head> 
        
   <body id="content">
-	<div class="topBar" ><div class="title">&nbsp;</div></div> 
-        <div class="detailsCard" id="details" onclick="hideFunction()">
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="singleWebPage01.html">User Info</a>
+      <a href="singleWebPage01.html">Settings</a>
+  </div>
+    <div class="topBar" >
+        <div class="sideButton" onclick="openNav()"></div>
+        </div>
+  </div>
+        <div class="title">&nbsp;</div>
+    </div> 
+        <!--<div class="detailsCard" id="details" onclick="hideFunction()">
             <div class="cTop brightBlue"><h3 id="detailsTitle"></h3></div>
             <div class="cBottom" id="detailsContent"></div>
         </div>
-        <!--<div class="card"><h3>Reports</h3><p>Here are your reports for the month.</p></div>
+        
         <div class="capsule">
             <div class="cTop"><h3>Reports</h3></div>
             <div class="cBottom"><p>Here are your reports for the month.</p></div>
         </div>
         --> 
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "320px";
+        }
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
   </body> 
