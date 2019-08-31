@@ -51,7 +51,7 @@ p {
 	background-color: #262626;
 
 	height: 46px;
-	padding: 4px 0px;
+	padding: 0px 0px;
 
 	/*text-align: center;*/
 	line-height:38px;
@@ -60,6 +60,52 @@ p {
 
 	border-bottom:1px solid #535456;
 	box-shadow: 0px 3px 3px #535456;
+}
+
+.sideButton {
+	background-color: #262626;
+	width: 34px;
+	height:34px;
+	margin:5px 10px;
+	padding: 0px;
+	border: 1px solid #8a8b8f;
+	border-radius: 2px;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 20px;
+    text-decoration: none;
+    font-size: 22px;
+    color: #818181;
+    display: block;
+    white-space: nowrap;
+
+    transition: 0.3s;
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 36px;
+    margin-left: 50px;
 }
 
 .capsule {
