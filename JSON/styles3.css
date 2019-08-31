@@ -58,7 +58,7 @@ p {
 	font-size: 16pt;
 	font-weight: bold;
 
-	border-bottom:1px solid red;
+	border-bottom:1px solid #535456;
 	box-shadow: 0px 3px 3px #535456;
 }
 
@@ -67,7 +67,7 @@ p {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 0px;
-	margin-bottom:5px;
+	margin-bottom: 24px;
 	background-color: white;
 	padding: 0px;
 	border: solid 1px #424344;
@@ -219,7 +219,7 @@ p {
 /*Margin by pixel:*/
 @media screen and ( max-width: 500px ){
     .capsule {
-        margin:0px 3% 20px 3%;
+        margin:0px 3% 12px 3%;
     }
     .detailsCard {
         margin:0px 3% 20px 3%;
