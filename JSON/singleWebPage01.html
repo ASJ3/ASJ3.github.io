@@ -19,7 +19,7 @@
             var listCards = "";
             for (var i in myarray) {
                 var singleCardArray = [];
-                listCards += '<div class="capsule" id="' + i + '" onclick="location.href = &#39;details.html&#63;' + myarray[i].id + '&#39;"><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].content + '</div></div>';
+                listCards += '<div class="capsule clickable" id="' + i + '" onclick="location.href = &#39;details.html&#63;' + myarray[i].id + '&#39;"><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].content + '</div></div>';
                 detailsArray.push(myarray[i].details);
                 singleCardArray.push(myarray[i].title);
                 singleCardArray.push(myarray[i].id);
