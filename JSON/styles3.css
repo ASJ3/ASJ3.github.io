@@ -152,6 +152,10 @@ p {
 	box-shadow: 3px 3px 5px #444;
 }
 
+.hidden {
+	display: none;
+}
+
 .cTop {
 	width: 100%;
 	margin-left: auto;
@@ -251,7 +255,7 @@ p {
 	max-width: 500px;
 	margin: auto;
 	background-color: white;
-	height: 500px;
+	height: 150px;
 	padding: 0px;
 	border: solid 1px #424344;
 	border-radius: 5px;
