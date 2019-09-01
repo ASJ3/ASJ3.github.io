@@ -21,7 +21,7 @@
                 // if the id is equal to the id passed in the url, then use JSON file to retrieve 
                 // the relevant info to display on screen, then break out of the loop
                 if (myarray[i].id == idSelector) {
-                    listCards = '<div class="capsule" id="details" ><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].details + '</div></div>';
+                    listCards = '<div class="capsule hidden" id="details" ><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].details + '</div></div>';
                     break;
                 }
             }
@@ -35,6 +35,7 @@
                 var cardRec = data.recommendations;
                 var detailedRec = extractRec(cardRec);
                 $('#content').append(detailedRec);
+                $(".hidden").fadeIn(210,"swing");
             });
         });
       </script> 
@@ -42,7 +43,7 @@
        
   <body id="content"> 
     <div class="topBar" >
-        <div class="sideButton" onclick="openNav()">
+        <div class="sideButton hidden" onclick="openNav()">
             <a href="singleWebPage01.html"><div class="arrowLeft"></div></a>
         </div>
     </div>
