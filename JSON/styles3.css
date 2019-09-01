@@ -65,9 +65,9 @@ p {
 .sideButton {
 	background-color: #262626;
 	width: 42px;
-	height:42px;
+	height:29px;
 	margin:3px 10px;
-	padding: 0px;
+	padding: 13px 0px 0px 0px;
 	border: 1px solid #262626;
 	border-radius: 2px;
 	cursor: pointer;
@@ -75,22 +75,23 @@ p {
 
 .burgerBar {
 	background-color: #f9f9f9;
-	height:4px;
-	margin: 6px 1px 0px 1px;
-	border: 1px solid #f9f9f9;
+	height:3px;
+	margin: 0px 8px 4px 8px;
+	border: 0px solid #f9f9f9;
 }
 
 .arrowLeft {
   border: solid red;
-  border-width: 0px 7px 7px 0px;
+  /*background-color: green;*/
+  border-width: 0px 5px 5px 0px;
   border-top-color: #262626;
   border-right-color: #f9f9f9;
   border-bottom-color: #f9f9f9;
   border-left-color: #262626;
-  width: 17px;
-  height: 17px;
+  width: 12px;
+  height: 12px;
   padding: 0px;
-  margin: 9px 0px 0px 12px;
+  margin: 0px 0px 0px 13px;
 
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
