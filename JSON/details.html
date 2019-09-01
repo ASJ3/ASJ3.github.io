@@ -21,7 +21,7 @@
                 // if the id is equal to the id passed in the url, then use JSON file to retrieve 
                 // the relevant info to display on screen, then break out of the loop
                 if (myarray[i].id == idSelector) {
-                    listCards = '<div class="capsule" id="details" onclick="location.href = &#39;singleWebPage01.html&#39;"><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].details + '</div></div>';
+                    listCards = '<div class="capsule" id="details" ><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].details + '</div></div>';
                     break;
                 }
             }
@@ -41,12 +41,16 @@
    </head> 
        
   <body id="content"> 
-	<div class="topBar" ><div class="title">&nbsp;</div></div>
+    <div class="topBar" >
+        <div class="sideButton" onclick="openNav()">
+            <a href="singleWebPage01.html"><div class="arrowLeft"></div></a>
+        </div>
+    </div>
         <!--<div class="capsule" id="details">
             <div class="cTop brightBlue"><h3 id="detailsTitle">Optimization</h3></div>
             <div class="cBottom" id="detailsContent"><p>Here are the details</p></div>
             <h3>OPTIMIZATION</h3>
-            <p>Here are more details about this</p>-->
-        </div>
+            <p>Here are more details about this</p>
+        </div>-->
 
   </body> 
