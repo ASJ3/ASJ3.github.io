@@ -14,12 +14,15 @@
     <script type = "text/javascript" language="javascript"> 
             var detailsArray = [];
             var detailedArray = [];
+            // idForDetails is a global variable to store the id of the card being clicked so we can now what data to
+            // show on the details html page
+            var idForDetails;
             
         function array_to_ul(myarray) {
             var listCards = "";
             for (var i in myarray) {
                 var singleCardArray = [];
-                listCards += '<div class="capsule clickable" id="' + i + '" onclick="location.href = &#39;details.html&#63;' + myarray[i].id + '&#39;"><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].content + '</div></div>';
+                listCards += '<div class="capsule clickable fading" id="' + i + '" onclick="showFunction(&#39;'+ myarray[i].id + '&#39;)"><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].content + '</div></div>';
                 detailsArray.push(myarray[i].details);
                 singleCardArray.push(myarray[i].title);
                 singleCardArray.push(myarray[i].id);
@@ -36,15 +39,31 @@
                 $('#content').append(cards);
             });
         });
-        function showFunction(i) {
-            console.log(detailedArray[i][1]);
+
+
+        
+
+        function showFunction(z) {
+          //console.log(detailedArray[i][1]);
           //document.getElementById("detailsTitle").innerHTML = detailedArray[i][0];
           //document.getElementById("detailsContent").innerHTML = detailedArray[i][1];
           //document.getElementById("detailsContent").innerHTML = detailsArray[i];
           //$("#details").fadeIn(200);
+          //document.getElementById("detailsContent").innerHTML = detailsArray[i];
+          idForDetails = z;
+          //console.log(z);
+          $(".fading").fadeOut(210,"swing");
+          setTimeout(goToDetails, 270);
         }
+
+        function goToDetails() {
+            //var infoRef = "details.html?" + idForDetails;
+            location.href= "details.html?" + idForDetails;
+        }   
+
         function hideFunction() {
-          $("#details").fadeOut (200);
+          //$("#details").fadeOut (200);
+          $(".capsule").fadeOut(200,"swing")
         }
       </script> 
    </head> 
@@ -56,7 +75,7 @@
       <a href="singleWebPage01.html">Settings</a>
     </div>
     <div class="topBar" >
-        <div class="sideButton" onclick="openNav()">
+        <div class="sideButton fading" onclick="openNav()">
             <div class="burgerBar"></div>
             <div class="burgerBar"></div>
             <div class="burgerBar"></div>
@@ -64,12 +83,12 @@
     </div>
 
 
-        <!--<div class="detailsCard" id="details" onclick="hideFunction()">
+        <div class="detailsCard" id="details" onclick="hideFunction()">
             <div class="cTop brightBlue"><h3 id="detailsTitle"></h3></div>
             <div class="cBottom" id="detailsContent"></div>
         </div>
         
-        <div class="capsule">
+        <!--<div class="capsule">
             <div class="cTop"><h3>Reports</h3></div>
             <div class="cBottom"><p>Here are your reports for the month.</p></div>
         </div>
