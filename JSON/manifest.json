@@ -2,7 +2,7 @@
 
 	"name": "Avendra Assistant",
 	"short_name": "Avendra",
-	"start_url": "/index.html",
+	"start_url": "/JSON/index.html",
 	"display": "standalone",
 	"background_color": "#606060",
 	"theme_color": "#262626",
