@@ -44,6 +44,18 @@
                 $(".hidden").fadeIn(210,"swing");
             });
         });
+      
+      function tickBox(x) {
+          innerText = x.innerHTML;
+          if (innerText == "") {
+            x.innerHTML = "&#10003;";
+            x.style.background = "#0095e6";
+          }
+          else {
+            x.innerHTML = "";
+            x.style.background = "#ffffff";
+          }
+      }
       </script> 
    </head> 
        
