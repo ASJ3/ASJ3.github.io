@@ -1,5 +1,5 @@
 // Adding this line to create a service worker update
-const staticCacheName = 'site-static';
+const staticCacheName = 'site-static2';
 const assets = [
 	'/',
 	'/index.html',
