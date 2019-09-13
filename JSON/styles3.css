@@ -294,6 +294,18 @@ p {
 	box-shadow: 4px 4px 12px #444;
 }
 
+.square {
+	width:20px; 
+	height: 20px; 
+	background-color: #ffffff; 
+	text-align: center;
+	border:1px solid grey;
+	border-radius: 3px;
+	color: #ffffff;
+	margin: 5px 0px 15px 0;
+
+}
+
 
 /*Margin by pixel:*/
 @media screen and ( max-width: 500px ){
@@ -304,3 +316,5 @@ p {
         margin:0px 3% 20px 3%;
     }
 }
+
+
