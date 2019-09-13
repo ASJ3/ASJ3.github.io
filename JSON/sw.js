@@ -6,6 +6,7 @@ const assets = [
 	'/JSON/user.html',
 	'/JSON/styles3.css',
 	'/JSON/js/app.js',
+	'/JSON/cardContent4.json',
 	'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'
 ];
 
