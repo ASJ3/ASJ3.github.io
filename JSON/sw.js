@@ -1,10 +1,10 @@
-const staticCacheName = 'site-static3';
+const staticCacheName = 'site-static4';
 const assets = [
-	'/',
-	'/index.html',
-	'/details.html',
-	'/styles3.css',
-	'/js/app.js',
+	'/JSON/',
+	'/JSON/index.html',
+	'/JSON/details.html',
+	'/JSON/styles3.css',
+	'/JSON/js/app.js',
 	'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'
 ];
 
