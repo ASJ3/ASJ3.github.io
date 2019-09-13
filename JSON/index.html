@@ -27,7 +27,7 @@
             var listCards = "";
             for (var i in myarray) {
                 var singleCardArray = [];
-                listCards += '<div class="capsule clickable fading" id="' + i + '" onclick="showFunction(&#39;'+ myarray[i].id + '&#39;)"><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].content + '</div></div>';
+                listCards += '<div class="capsule clickable fading" id="' + i + '" onclick="hideSummary(&#39;'+ myarray[i].id + '&#39;)"><div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].content + '</div></div>';
                 detailsArray.push(myarray[i].details);
                 singleCardArray.push(myarray[i].title);
                 singleCardArray.push(myarray[i].id);
@@ -48,7 +48,7 @@
 
         
 
-        function showFunction(z) {
+        function hideSummary(z) {
           //console.log(detailedArray[i][1]);
           //document.getElementById("detailsTitle").innerHTML = detailedArray[i][0];
           //document.getElementById("detailsContent").innerHTML = detailedArray[i][1];
@@ -62,14 +62,37 @@
         }
 
         function goToDetails() {
-            //var infoRef = "details.html?" + idForDetails;
-            location.href= "details.html?" + idForDetails;
+            $(".hidden").fadeIn(210,"swing");
         }   
+
+        function hideDetails() {
+            $(".hidden").fadeOut(210,"swing");
+          setTimeout(goToSummary, 270);
+        }
+
+        function goToSummary() {
+            $(".fading").fadeIn(210,"swing");
+        } 
 
         function hideFunction() {
           //$("#details").fadeOut (200);
           $(".capsule").fadeOut(200,"swing")
         }
+
+        // tickBox() is designed to make the check boxes in the detailed mode look nice
+        function tickBox(x) {
+          innerText = x.innerHTML;
+          if (innerText == "") {
+            x.innerHTML = "&#10003;";
+            x.style.background = "#0095e6";
+          }
+          else {
+            x.innerHTML = "";
+            x.style.background = "#ffffff";
+          }
+        }
+
+
       </script> 
    </head> 
        
@@ -85,13 +108,15 @@
             <div class="burgerBar"></div>
             <div class="burgerBar"></div>
         </div>
+        <div class="sideButton hidden"><div class="arrowLeft" onclick="hideDetails()"></div></div>
     </div>
 
 
-        <div class="detailsCard" id="details" onclick="hideFunction()">
-            <div class="cTop brightBlue"><h3 id="detailsTitle"></h3></div>
-            <div class="cBottom" id="detailsContent"></div>
+        <div class="capsule hidden" id="details">
+            <div class="cTop brightBlue"><h3>Hello</h3></div>
+            <div class="cBottom"><p>Details go here</p></div>
         </div>
+
         
         <!--<div class="capsule">
             <div class="cTop"><h3>Reports</h3></div>
