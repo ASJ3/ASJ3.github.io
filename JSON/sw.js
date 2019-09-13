@@ -1,4 +1,4 @@
-const staticCacheName = 'site-static4';
+const staticCacheName = 'site-static';
 const assets = [
 	'/JSON/',
 	'/JSON/index.html',
