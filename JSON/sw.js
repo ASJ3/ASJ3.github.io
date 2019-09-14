@@ -36,7 +36,7 @@ self.addEventListener('activate', (evt) => {
 self.addEventListener('fetch', (evt) => {
 	//console.log('fetch event', evt);
 	evt.respondWith(
-		caches.match(evt.request).then(cacheRes => {
+		caches.match(evt.request, {'ignoreSearch': true}).then(cacheRes => {
 			return cacheRes || fetch(evt.request);
 		})
 	);	
