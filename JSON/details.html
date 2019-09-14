@@ -34,7 +34,7 @@
             return listCards;
         }
         $(document).ready(function () {
-            $.getJSON("https://asj3.github.io/JSON/cardContent4.json", (data) => {
+            $.getJSON("/JSON/cardContent4.json", (data) => {
                 console.log(data);
                 // Getting the id located in the url
                 idSelector = location.search.slice(1);

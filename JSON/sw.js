@@ -1,3 +1,4 @@
+// update
 const staticCacheName = 'site-static';
 const assets = [
 	'/JSON/',
@@ -8,6 +9,7 @@ const assets = [
 	'/JSON/js/app.js',
 	'/JSON/cardContent3.json',
 	'/JSON/cardContent4.json',
+	'/JSON/manifest.json',
 	'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'
 ];
 
@@ -37,7 +39,12 @@ self.addEventListener('fetch', (evt) => {
 	//console.log('fetch event', evt);
 	evt.respondWith(
 		caches.match(evt.request, {'ignoreSearch': true}).then(cacheRes => {
-			return cacheRes || fetch(evt.request);
+			return cacheRes || fetchResponding(evt.request);
 		})
 	);	
 });
+
+function fetchResponding(request) {
+	console.log('could not find document in the cache',request);
+	return fetch(request);
+}
