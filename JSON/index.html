@@ -2,7 +2,7 @@
 <html> 
   
 <head> 
-    <title>Assistant
+    <title>Assistant7
     </title> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,6 +19,7 @@
     <script type = "text/javascript" language="javascript"> 
             var detailsArray = [];
             var detailedArray = [];
+            var cardRec = [];
             // idForDetails is a global variable to store the id of the card being clicked so we can now what data to
             // show on the details html page
             var idForDetails;
@@ -39,7 +40,7 @@
         $(document).ready(function () {
             $.getJSON("https://asj3.github.io/JSON/cardContent5.json", (data) => {
                 console.log(data);
-                var cardRec = data.recommendations;
+                cardRec = data.recommendations;
                 var cards = array_to_ul(cardRec);
                 $('#content').append(cards);
             });
@@ -62,6 +63,9 @@
         }
 
         function goToDetails() {
+            var x = extractRec(cardRec);
+            //console.log(x);
+            document.getElementById("details").innerHTML = x;
             $(".hidden").fadeIn(210,"swing");
         }   
 
@@ -77,6 +81,22 @@
         function hideFunction() {
           //$("#details").fadeOut (200);
           $(".capsule").fadeOut(200,"swing")
+        }
+
+
+        function extractRec(myarray) {
+            var listCards = "";
+            for (var i in myarray) {
+                // if the id is equal to the id passed in the url, then use JSON file to retrieve 
+                // the relevant info to display on screen, then break out of the loop
+                if (myarray[i].id == idForDetails) {
+                    listCards = '<div class="cTop ' + myarray[i].color + '"><h3>' + myarray[i].title + '</h3></div><div class="cBottom">' + myarray[i].details + '</div>';
+                    break;
+                }
+            }
+            return listCards;
+            //document.getElementById("details").innerHTML = listCards;
+            //console.log(listCards);
         }
 
         // tickBox() is designed to make the check boxes in the detailed mode look nice
@@ -113,8 +133,6 @@
 
 
         <div class="capsule hidden" id="details">
-            <div class="cTop brightBlue"><h3>Hello</h3></div>
-            <div class="cBottom"><p>Details go here</p></div>
         </div>
 
         
