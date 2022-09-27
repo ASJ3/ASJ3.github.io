@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OmniSearch v12.5</title>
+<style>
+* {
+	box-sizing: border-box;
+}
+
+body {
+	overflow-x: hidden;
+	font: 16px Arial; 
+	background-image: url("nexus1.png");
+	background-repeat: no-repeat;
+	background-color: #081326;
+	padding: 0px;	
+	margin: 0px;
+}
+
+
+
+.container {
+	display: flex; /* or inline-flex */	
+	align-items: center;
+	flex-direction: row;
+	flex-wrap: wrap; 
+	justify-content: center; /*flex-end | flex-start*/
+	align-items: stretch; /*flex-start;*/
+	background: #fff;
+	align-content: flex-start;
+	border-top: 1px solid #b5b5b5;
+	border-bottom: 1px solid #b5b5b5;
+	gap: 8px;
+	padding: 20px 16%;
+	/*padding: 20px 15px 20px 360px;*/
+}
+
+
+
+
+.table_item {
+	/*flex-grow: 1; default 0 */
+	width: 260px;
+	flex-grow: 1;
+	vertical-align: center;
+	width: 240px;
+}
+
+.table_search {
+	/*flex-grow: 1; default 0 */
+	flex-grow: 1
+	vertical-align: center;
+	width: 400px;
+}
+
+.cat_0 {
+	background-color: #FFF2CC;
+	border-left: 4px solid #ffcc34; /*#FFD967;*/
+}
+
+.cat_1 {
+	background-color: #C9E4FF;
+	border-left: 4px solid #529ce5; /*#7dbeff;*/
+}
+
+.cat_2 {
+	background-color: #C5E0B4;
+	border-left: 4px solid #94ba7c; /*#a5cf8a;*/
+}
+
+.searchBar{
+	border: 1px solid #ccc;
+	background-color: #fff;
+	padding: 15px 10px;
+}
+
+p {
+	margin: 10px;
+	vertical-align: center;
+}
+
+h1 {
+	/*display: none;*/
+	font-size: 48px;
+	text-align: center;
+	/*text-transform: uppercase;*/
+	font-variant: small-caps;
+	margin-bottom: 4px;
+	margin-top: 50px;
+	color: white;
+	text-shadow: 0px 0px 5px #8bace7; /*#2457b1;*/
+	/*color: white;
+		text-shadow: 2px 2px 4px rgba(0,20,20,1.0);
+		-webkit-background-clip: text;
+		-moz-background-clip: text;
+	background-clip: text;*/
+}
+
+h3 {
+	text-align: center;
+	margin-top: 0px;
+	margin-bottom: 60px;
+	font-weight: normal;
+	font-style: normal; /*italic*/
+	color: white;
+}
+
+.new_container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	background-color: yellow;
+	height: 60px;
+	align-items: stretch
+}
+
+#new_left_child {
+	border: 4px dotted yellow;
+	background-color: green;
+	flex-grow: 0; 
+	flex-shrink:1;
+	flex-basis:40px;
+}
+
+.new_mid_child {
+	display: flex;
+	align-items: center;
+	background-color: lightgreen;
+	width: 60px;
+	border: 4px dotted red;
+	/*flex-grow: 1;*/
+	flex-shrink:1;
+	flex-basis:1200px;
+}
+
+.new_right_child {
+	
+	border: 4px dotted yellow;
+	background-color: red;
+	/*flex-grow: 1;*/
+	flex-grow: 1; 
+	flex-shrink:100;
+	flex-basis:40px;
+}
+
+.sub_container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	height:40px;
+	width:100px;
+}
+
+#other_cont {
+
+	/*background-color: #081326;*/
+	border:1px solid transparent;
+}
+
+.searchTogether {
+	display:flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+	/*width: 500px;	*/
+	flex-grow: 1;
+	border: 0px solid blue;
+	padding: 0px;
+	
+
+}
+
+
+
+/*the container must be positioned relative:*/
+.autocomplete {
+	position: relative;
+	display: inline-block;
+	width: 320px;
+}
+
+.bluecont {
+	display:flex;
+	flex-wrap: nowrap;
+	width: 400px;	
+	border: 1px solid red;
+	flex-grow: 1;
+}
+
+
+
+input {
+	border: 1px solid transparent;
+	background-color: #f1f1f1;
+	padding: 10px;
+	font-size: 16px;
+}
+
+input[type=text] {
+	background-color: #f1f1f1;
+	width: 100%;
+}
+
+input[type=submit] {
+	background-color: DodgerBlue;
+	color: #fff;
+	cursor: pointer;
+}
+
+.autocomplete-items {
+	position: absolute;
+	border-style: solid;
+	border-width: 1px 1px 1px 0px;
+	border-color: #d4d4d4;
+	border-bottom: none;
+	border-top: none;
+	z-index: 99;
+	/*position the autocomplete items to be the same width as the container:*/
+	top: 100%;
+	left: 0;
+	right: 0;
+}
+
+.autocomplete-items div {
+	padding: 10px;
+	cursor: pointer;
+	/*background-color: #aaffff;*/ 
+	border-bottom: 1px solid #d4d4d4; 
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+ background-color: #e9e9e9; 
+	/* background-color: #fdf7d7;*/
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+	background-color: DodgerBlue !important; 
+	color: #ffffff; 
+}
+
+
+
+@media screen and (max-width: 700px) {
+h1 {
+	font-size: 30px;
+	margin-top: 25px;
+	text-shadow: 0px 0px 3px #8bace7; /*#2457b1;*/
+}
+
+h3 {
+	margin-bottom: 25px;
+	font-size: 16px;
+}
+
+.container {padding: 10px 5%;}
+
+.autocomplete {
+	width: 280px;
+}
+
+#myInput {
+	font-size:15px;
+}
+
+#subButton {
+	font-size: 15px;	
+}
+
+
+}
+
+
+
+
+.new_trial {
+	display:flex;
+	flex-wrap: wrap;
+	border: 1px dotted green;
+	gap: 10px;
+	background-color: #eee;
+	padding: 10px 40px;
+
+
+}
+
+.yellow {
+	width: 400px;
+	background-color: yellow;
+	flex-grow: 1;
+}
+
+.bluecont {
+	display:flex;
+	flex-wrap: nowrap;
+	width: 400px;	
+	border: 1px solid red;
+	flex-grow: 1;
+}
+
+.blue {
+	width: 400px;
+	background-color: blue;
+	flex-grow: 1;
+}
+
+.lightblue {
+	background-color: lightblue;
+	width: 200px;	
+
+}
+
+
+
+
+</style>
+</head>
+<body >
+
+<div id="other_cont">
+	<!--
+	<h1>Omni Search Box</h1>
+	-->
+	<h1>Global Search Box</h1>
+	<h3>Live results for supplier names, groupings, or items</h3>
+
+<!--Make sure the form has the autocomplete function switched off:-->
+<!--IMPORTANT: the value of 0,1,2 are going to be used to know what parts of the array of results need to be searched. So it is important that the results are in the same order as the values (e.g. the first array of results is for supplier names, since the checkbox for supplier names is the one with value of 0)-->
+<div class = "container">
+<div class = "table_item cat_0"><p><input type="checkbox" id="SupplierName" name="searchGroup" value="0" checked>
+	<label for="SupplierName"> Supplier Name</label></p></div>
+<div class = "table_item cat_1"><p><input type="checkbox" id="SupplierGroup" name="searchGroup" value="1" checked>
+	<label for="SupplierGroup"> Supplier Grouping Name</label></p></div>
+<div class = "table_item cat_2"><p><input type="checkbox" id="ItemGroup" name="searchGroup" value="2" checked>
+	<label for="ItemGroup"> Item Grouping Name</label></p></div>
+
+<div class = "searchTogether">
+<form autocomplete="off" action="/action_page.php">
+	<div class="autocomplete"> 
+	<input id="myInput" type="text" name="myCountry" placeholder="Supplier Name, Category, or Item Type">
+	</div>
+	<input type="submit" id="subButton">
+</form>
+</div>
+</div>
+
+
+<!--
+<div class="new_trial">
+	<div class="yellow cat_0">a</div>	
+	<div class="yellow cat_1">a</div>
+	<div class="yellow cat_2">a</div>
+	<div class="bluecont">
+		<div class="blue">I was having issues with flexbox resizing when a search was started and the many results</div>
+		<div class="lightblue">I was having issues with flexbox resizing</div>
+	</div>
+</div>
+
+<div class="new_trial">
+	<div class="yellow cat_0">a</div>	
+	<div class="yellow cat_1">a</div>
+	<div class="yellow cat_2">a</div>
+	<div class="bluecont">
+		<div class="autocomplete"><input id="myInput" type="text" name="myCountry" placeholder="Supplier Name, Category, or Item Type"></div>
+		<div class="lightblue"><input type="submit"></div>
+	</div>
+</div>
+-->
+
+
+</div>
+
+<!--
+<div class = "new_container">
+	<div id = "new_left_child">a</div>
+	<div class = "new_mid_child">
+		<div class= "sub_container">b</div>
+	</div>
+
+	<div class = "new_right_child">c</div>
+	
+</div>
+-->
+
+
+<script>
+/*document.getElementById("other_cont").style.backgroundColor = "blue";
+document.getElementById("other_cont).style.color = "red";*/
+
+/*2022-09-24 Alexis: I was having issues with flexbox resizing when a search was started and the many results created a vertical scrollbar. That bar was pushing to the left the center-aligned elements. So I had to rely on JavaScript to find the width of the window on each resize, as the vertical scrollbar appearing/disappearing doesn't affect window size.*/
+var newWidth = window.innerWidth - 0;
+document.getElementById("other_cont").style.width = newWidth +"px";
+
+/*window.onresize = function(event) {console.log("x: " + window.innerWidth+"     y:    " + window.innerHeight);}*/
+window.onresize = function(event) {
+	var newWidth = window.innerWidth - 0;
+	document.getElementById("other_cont").style.width = newWidth +"px";
+}
+
+/*window.addEventListener('resize', () => {console.log(document.getElementById("other_cont").style.width)});*/
+
+function autocomplete(inp, arr) {
+	/*the autocomplete function takes two arguments,
+	the text field element and an array of possible autocompleted values:*/
+	var currentFocus;
+	/*execute a function when someone writes in the text field:*/
+	inp.addEventListener("input", function(e) {
+	var a, b, i, val = this.value;
+	/*close any already open lists of autocompleted values*/
+	closeAllLists();
+	if (!val | val.length<2) { return false;}
+	/*2022-09-23 Alexis: We want the search to only start working when the users has typed at least 3 letters in the search box*/
+	currentFocus = -1;
+	/*create a DIV element that will contain the items (values):*/
+	a = document.createElement("DIV");
+	a.setAttribute("id", this.id + "autocomplete-list");
+	a.setAttribute("class","autocomplete-items");
+	/*append the DIV element as a child of the autocomplete container:*/
+	this.parentNode.appendChild(a);
+
+/*2022-09-23 Alexis: We want to search for a match anywhere, not just the beginning of each string in the array of values*/			
+	/*for each item in the array...*/	
+	var checkboxes = document.getElementsByName("searchGroup");	
+	const checkedBoxes = [];
+	/*2022-09-24 Alexis:If the checkbox in position 0 is checked for example, then the checkedBoxes array will have the nubmer 0 added to it, which will then be used to retrieve any matching string from the array in position 0 in the array with the results*/
+	for(var i = 0; i < checkboxes.length; i++)	
+			{	
+			if(checkboxes[i].checked)	
+			checkedBoxes.push(i); 
+		}
+
+	console.log(checkedBoxes)
+	for (const j of checkedBoxes) {	
+			for (i = 0; i < arr[j].length; i++) {
+
+	/*check if the item starts with the same letters as the text field value:*/
+	
+	/*2022-09-23 Alexis*/
+	arrayUpperCase = arr[j][i].toUpperCase();
+	resultPosition = arrayUpperCase.search(val.toUpperCase())
+	if ( resultPosition !=-1 ) {
+	/*if (arr[j][i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {*/
+	/*create a DIV element for each matching element:*/
+	b = document.createElement("DIV");
+	/*--------------------------------------------------------------*/
+		b.setAttribute("class","cat_"+j);
+	/*make the firt matching letters bold:*/
+		b.innerHTML = arr[j][i].substr(0, resultPosition);
+	b.innerHTML += "<strong>" + arr[j][i].substr(resultPosition, val.length) + "</strong>";
+	b.innerHTML += arr[j][i].substr(resultPosition+val.length);
+	/*insert a input field that will hold the current array item's value:*/
+	b.innerHTML += "<input type='hidden' value='" + arr[j][i] + "'>";
+	/*execute a function when someone clicks on the item value (DIV element):*/
+	b.addEventListener("click", function(e) {
+	/*insert the value for the autocomplete text field:*/
+	inp.value = this.getElementsByTagName("input")[0].value;
+	/*close the list of autocompleted values,
+	(or any other open lists of autocompleted values:*/
+	closeAllLists();
+	});
+		a.appendChild(b);			
+			}	
+	}			
+	}			
+	});			
+
+	/*execute a function presses a key on the keyboard:*/
+	inp.addEventListener("keydown", function(e) {
+	var x = document.getElementById(this.id + "autocomplete-list");
+	if (x) x = x.getElementsByTagName("div");
+	if (e.keyCode == 40) {
+	/*If the arrow DOWN key is pressed,
+	increase the currentFocus variable:*/
+	currentFocus++;
+	/*and and make the current item more visible:*/
+	addActive(x);
+	} else if (e.keyCode == 38) { //up
+	/*If the arrow UP key is pressed,
+	decrease the currentFocus variable:*/
+	currentFocus--;
+	/*and and make the current item more visible:*/
+	addActive(x);
+	} else if (e.keyCode == 13) {
+	/*If the ENTER key is pressed, prevent the form from being submitted,*/
+	e.preventDefault();
+	if (currentFocus > -1) {
+	/*and simulate a click on the "active" item:*/
+	if (x) x[currentFocus].click();
+	}
+	}
+	});
+	function addActive(x) {
+	/*a function to classify an item as "active":*/
+	if (!x) return false;
+	/*start by removing the "active" class on all items:*/
+	removeActive(x);
+	if (currentFocus >= x.length) currentFocus = 0;
+	if (currentFocus < 0) currentFocus = (x.length - 1);
+	/*add class "autocomplete-active":*/
+	x[currentFocus].classList.add("autocomplete-active");
+	}
+	function removeActive(x) {
+	/*a function to remove the "active" class from all autocomplete items:*/
+	for (var i = 0; i < x.length; i++) {
+	x[i].classList.remove("autocomplete-active");
+	}
+	}
+	function closeAllLists(elmnt) {
+	/*close all autocomplete lists in the document,
+	except the one passed as an argument:*/
+	var x = document.getElementsByClassName("autocomplete-items");
+	for (var i = 0; i < x.length; i++) {
+	if (elmnt != x[i] && elmnt != inp) {
+	x[i].parentNode.removeChild(x[i]);
+	}
+	}
+	}
+	/*execute a function when someone clicks in the document:*/
+	document.addEventListener("click", function (e) {
+	closeAllLists(e.target);
+	});
+}
+
+/*An array containing all the country names in the world:*/
+var countries = [["1888 Mills, LLC","1Concier (fka Riegel Linen)","1Concier (fka T-Y Group)","ADA International (fka Pacific Direct)","AUI Fine Foods","Adidas","Air Aroma","Airgas","Alliance Laundry Systems, LLC (dba Unimac)","Alsco","Ambius","American Classic Carpet Cleaning, Inc.","American Window & Building Cleaning","Aquamenities","Aramark Uniform Services & Career Apparel (Rental)","Aramark Uniform Services (AUS) (Culinary and Raiven Uniform Purchases)","Armstrong World Industries","Aspen Refrigerants","Assa Abloy Global Solutions, Inc.","Astor Chocolate (Avendra, HPSI)","At Work Uniforms","Avendra Replenishment","Averus","BBJ Linen","BMS CAT, Inc","Baker Distributing Company, LLC","BauscherHepp, Inc.","Beaumont & Brown","Best Buy","Beverly Coat Hanger","BirdieBox - Gift Services","Bloom Baby","BlueTriton Brands, Inc.","Bluegum Group","Bon Chef","BrightView Landscape Services","Buckhead Meat & Seafood Mid-Atlantic","Building Maintenance Service, LLC","Butter Emporium - Avendra Regions","CASAROVEA USA, INC.","CQ Infused Beverages, LLC","Carbons Golden Malted","Cardinal International","Carrier Enterprise, LLC","Caviar & Caviar, LLC","Centricity","Chefs' Warehouse","Chemtron","Chocolates a la Carte (Avendra)","Cintas Corporation (First Aid)","Cintas Corporation (Uniform Purchases)","Cintas Fire Protection Services","Cintas Uniform rental Division","Clement's Pastry Shop, Inc","Coastal Sunbelt Produce Company","Columbia Sportswear by Outdoor Custom Sportswear","Commercial Laundry Corporation","Connie Duglin Linen","Contract Hardware Inc.","Cort Event Furnishings","Courtesy Products","Crown Brands, LLC (Formerly Oneida, Ltd.)","Crown Technics North American","Cuisine Solutions","Danone Waters of America - Evian","Davey Landscaping","Day & Nite Refrigeration / All Service Commercial Kitchen Equipment Repair","DevMar Products, LLC","Dow Jones & Company, Inc.","Down Etc","Downlite","Dreyer's Grand Ice Cream","E P Pro","E-Z-GO","Ecolab US","Ecore International, Inc.","Edward Don and Company","ElDorado Bus Sales","Empire Unistar Management, Inc.","Erwyn Products Company","Fabric Innovations, Inc.","Facility Solutions Group (FSG MAIN)","Fairway & Greene","FedEx","Ferguson Enterprises, LLC","Fiji Water Company LLC","Five Star","Foley Fish","Foodware Group (G.E.T./Winco/Bugambilia)","Forbes Industries, Inc.","Ford","Fortessa Tableware Solutions, LLC","Forton Company","Foundations","Fredi & Sons Inc.","Frette","Friedrich Air Conditioning Company","Front of the House","Frylow","Gallery Carts, Inc. (Aramark)","Gear For Sports","General & Mechanical Services","Gilchrist & Soames","Gold Crust Baking Company, Inc","Gourmet Foods (Avendra)","Gourmet Foods International","Gourmet Kitchen Direct","Gourmet Table Skirts","Grainger Industrial Supply (Master)","Graybar Electric Company, Inc.","Guest Supply, LLC (Distributor)","H&S Bakery Inc","HD Supply (Rooms US)","HD Supply (US)","HKH JVC LLC dba Norpac Fisheries Export","Halperns' - Parent (Meat)","Halperns' - Parent (Seafood)","Healthy Truth","Heartland Waffles","HireRight (Formerly General Information Services, Inc.","Hotel Emporium","HotelFlags","Hunter Amenities","IHS Global Alliance","Iconex LLC","Illy caffe North America, Inc.","Imprint Plus, a division of Avery Products Corporation","InPro Corporation","Integrity Services","Iowa Rotocast Plastics","Island Oasis","J.J. McDonnell & Co., Inc.","JR Resources, Inc.","John Deere","Judgebuilt (New Services)","Kaba Ilco","Kanaloa Seafood","Karcher (Windsor)","Kartri Sales Co, Inc.","Keany Produce and Gourmet","Kellermeyer Bergensons Services","Kentwool Performance Apparel","Koch Filter Corporation","Koerner","Kone, Inc.","LEDVANCE, LLC","La Bottega","Lancaster Commercial Products LLC","LandCare USA, LLC","Lapine","Lather","Leslie's Swimming Pool Supplies","Life Fitness","Liquid Environmental Solutions","Lorenzo Food Group","Lyon Bakery","MDM Commercial Enterprises, Inc","Majestic Industries Canada","Matrix","Maui Foods (Avendra)","Maxim World","Maywood Furniture Corporation","Mechanical Servants, LLC","Metro Laundry","Meveca","MicroFridge","Mighty Leaf Tea","Minibar North America, Inc.","Minus Global Holdings, Inc. (fka Totally Green, Inc.)","Mity-Lite, Inc.","Miwa","Monarch Robe and Towel Company","Mood Music","Music Styling","N. Wasserstrom & Sons","NRC","National Satellite Center - DIRECTV for Business","Nelbud","Nespresso USA","Nestle USA (Nestle Coffee Partners: Solutions Lab) (formerly Starbucks","Network Services Company","Nonstop Products","Nordon Inc. (Aramark)","ODP BSD (fka Office Depot) - U.S. & Caribbean","Onity, Inc.","Otis Elevator Company","Ovention, Inc. (Aramark)","P. Kaufmann","PCM Technologies, LLC d/b/a RX Music","PLI (Plasticard Locktech International)","Paradigm Trends","Parts Town (US)","Party Rental Ltd (Aramark)","Pavement Company, LLC","Pellerin Milnor Corporation","Pepsi - Marriott","PepsiCo, Inc.","Pitney Bowes","PlayNetwork","Polypak Industries AG","Power Plus","Prescriptive Music, d/b/a RX Music","Prestwick Golf Group","Private Spring Water","ProFish","Proud Source Water","Quench USA, Inc.","RCA Laboratory Service, Inc. d/b/a Genetworx","Rak Porcelain USA, Inc.","Ramler","Rational USA","Ready Care Industries","Regal Poly-Pak","Renue Systems, Inc. (formerly National Appeal)","Restaurant Technologies, Inc.","Restorair","Rolyn, LLC fka Rolyn Companies, Inc. DBA First OnSight Restoration","Rosenthal Sambonet USA","Rosseto Serving Solutions","Royal Cup Coffee","Ryvor Group","Safemark","Saflok","Samsung","ScentAir","Schindler Elevator Corporation","Seam Group","Seven C's Building Maintenance, Inc.","Sherwin Williams","Shoes For Crews","Sico America, Inc.","SiteOne Landscape Supply, Inc.","Smart Care","Snapple Beverage Corporation","Sobel Westex","Soft Stuff Distributors, Inc.","Southern Aluminum Manufacturing","Spectrum Medical, Inc.","Spring USA","Standard Textile","Steelite International","Stingray Business","Stuart Dean Company","Sugarman of Vermont (Avendra)","Sunbelt Rentals","Sunset Pools","Swiss Chalet Fine Foods","T-Mobile USA Inc.","TK Elevator","TORO","TRX","Tea Forte","Technical Consumer Products, Inc. (USA)(TCP)","Technogym","Telgian Corporation","Tennant Company","Tessicasa Inc.","The Chef's Garden","The Matworks, LLC (fka TEC Services)","The Metropolitan Tea Company Ltd.","The Regency Group","The Services Companies (Formerly JRS International Inc.)","The Wasserstrom Company (Avendra, Aramark, HPSI)","Tivoli Audio, Inc.","Torn Ranch (Avendra / HPSI)","Tornado Industries","Total Facility Services Inc","Tradavo","Tri-Dim Filter","Triar Seafood Company","Tropical Nut & Fruit AKA Truly Good Foods (Avendra, HPSI)","Tuscan/Lehigh Dairies, Inc.","Twisted Alchemy (fka Industry Juice)","Tyco Integrated Security (formerly ADT)","UMF Corporation","US Foods - Manassas (DC)","USA TODAY","Umbra","UniFirst Corporation","Unilever","United Natural Foods, Corporate HQ (Master)","Uptown Bakers","VDA","Van Lang Foods","Venus Group Inc.","Villeroy & Boch USA, Inc.","Vision Communications","Vistar","Welspun Hospitality Solutions","Wessco International","WestPoint Home","Zero Restriction Outerwear","eGlobal","room360° by FOH"], ["ATM Machines","Acoustic Tiles","Air Conditioning and Cleaning","Air Purification","Airfilters","Amenities","Apparel","Appliances","Background Check & Drug Test","Banquet Chairs","Bar Mixes","Beverages","Bottled Water","Business Forms","Carbonated Beverages","Cell Service","Chemicals","Chocolates","Cleaning","Cleaning Products","Clocks","Coffee","Cornerguards","Custom Gifts","Diningware","Door Frames and Equipment","Door Locks","Duvet and Pillows","Electrical Service","Elevators","Emergency Repair & Remediation","Engineering Supplies","Exercise Equipment","FF&E","Fire & Life Safety","Flags","Flavored Beverages","Floor Care & Carpet Cleaning","Flooring","Food","Furniture Rental","Gases","Golf Apparel","Golf Carts","Hood & Duct Cleaning","Hotel Furniture","Ice Cream","In-room Safes","Irons","Janitorial Supplies","Juice","Key Cards","Kitchen Equipment","Kitchen Repair","Landscaping","Laundry & Dry Cleaning","Laundry Equipment","Lawn Equipment","Lightbulbs","Linen Rental","Logo Items","MRO Supplies","Mail","Maple Syrup","Master Food Distribution","Minibars","Muffin Batter","Music","Name Tags","Newspapers","Office Supplies","Oil Recycling","Outdoor Furnishings","Paint","Paving & Striping","Pens","Plants - Interior","Plumbing","Plumbing Products","Pool Cleaning","Pool Supplies","Prepared Food","Printing","Promotional Products","Regional Bakery","Regional Dairy","Regional Meat","Regional Produce","Regional Seafood","Rental Equipment","Restaurant Equipment","Retail Products","Robes","Room Distribution","Room Supplies","Safety Shoes","Scent","Security Monitoring","Shipping","Shredding","Slippers","Smallwares","Snacks","Spa Equipment","Speakers","Specialty Foods","TV Programming","Table Skirts and Linens","Tables","Tea","Textiles","Turf Chemical Products","Uniform Rental","Uniforms","Vacuums","Vehicles","Walkie-talkies","Waste Management","Water Filtration","Window Coverings","Window Washing"], ["Alcohol","Apples","Apricots","Area Rugs and Mats","Artichokes","Artwork and Artifacts","Arugula","Asparagus","Audio and Visual Equipment","Avocado","BBQ Sauce","Bags and Can Liners","Bakery Breads","Bakery Desserts","Bakery Mixes & Ingredients","Bakery Pastries","Bakery, Other","Bamboo Shoots","Bananas","Banking and ATM Services","Banquet Supplies","Bar Mix","Barley","Bases","Bath Amenities","Beans","Bedding","Beef","Beets","Berries","Beverages, Other","Boards","Broccoli","Butter","CSD, Bottled","CSD, Canned","CSD, Post-Mix, Syrup, BIB","CSD, Pre-Mix","Cabbage","Calamari or Squid","Calculators and Accessories","Canola Oil","Carbonated Soft Drinks, Other","Carpentry","Carrots","Cash Registers & Supplies","Cauliflower","Celery","Cellular Equipment and Services","Cereal","Check Authorization Services","Cheese","Cherries","Chicken","Chili","China","Cleaning Machines and Accessories","Cleaning and Janitorial Services","Cleaning and Janitorial Supplies","Clothing","Clothing Accessories","Cocktail Sauce","Coconut, Whole","Coffee Beans, Ground","Coffee Beans, Whole","Coffee Flavoring","Coffee, Instant","Coffee, Liquid Concentrate","Coffee, Other","Coffee, Ready to Drink","Computer Accessories","Computers","Condiments and Dressings, Other","Cooking Ingredients","Cookware","Copy Paper","Corn","Corn Oil","Couscous","Crab","Cream","Creamer","Cucumber","Dairy, Other","Demi-Glace","Desk Supplies","Dips","Dispensing Equipment","Disposable Apparel","Disposable Containers","Disposable Tableware","Doors and Windows","Drug Testing","Eggplant","Eggs","Elevator Maintenance","Employment Screening","Equipment Leases and Rentals","Espresso","Fabrics","Fertigation","Film, Foil, Wrap, Pan Liners","Fin Fish","Fire Life Safety Services","Flatware","Flavored Drink","Flooring","Food Handling Equipment","Food, Other","Footwear","Forms","Fresh Herbs","Fruit, Mixed","Fuel and Table Lighting","Functional Beverage","Furnishing Services","Furniture","Game Birds","Games and Equipment","Glassware","Golf Equipment and Supplies","Grains, Other","Grapefruit","Grapes","Grass Seed and Rye","Gravy","Grocery, Other","Guard services","HVAC","HVAC Water Care","Health Club Equipment","Hollandaise Sauce","Honey","Horseradish Sauce","Hot Sauce","Ice Cream","Installation and Maintenance Services","Jams and Jellies","Juice, Apple","Juice, Apple Cider","Juice, Cranberry","Juice, Fruit Blend","Juice, Grape","Juice, Grapefruit","Juice, Lemon","Juice, Lime","Juice, Orange","Juice, Other","Juice, Pineapple","Juice, Post-Mix, Syrup, BIB","Juice, Prune","Juice, Tomato","Juice, Vegetable","Ketchup","Kitchen Appliances","Kitchen Racks","Kitchen Tools and Supplies","Kiwi","Lamb","Lamps","Landscaping","Laundry Equipment","Laundry Outsourced Services","Leeks","Lemons","Lettuce","Lighting and Fixtures","Limes","Lobster","Long Term Rent Expense","Luggage Carts","M&E Equipment","M&E Supplies","Mailing Machines","Mailing Supplies","Mangoes","Mayonnaise","Meat, Other","Medical, Other","Melons","Milk","Mushrooms","Mustard","Non-Carb, Non-Dairy, Other","Non-Carb, Non-Dairy, Post-Mix, Syrup, BIB","Oil Blends","Oil, Other","Oil, Soybean or Vegetable","Olive Oil","Olives","Onions","Oranges","Other","Paint and Supplies","Pan Spray","Papaya","Paper Processing Machines","Passenger Motor Vehicles","Pasta","Peaches","Peanut Butter","Peanut Oil","Pears","Peas","Peppers","Personal Paper Products","Pest Control Services","Pest Control Supplies","Pickled Products","Pineapples","Plantains","Plumbing","Plums","Point of sale POS receipt printers","Pool Chemicals","Pool Equipment","Pool Supplies and Accessories","Popcorn Oil","Pork","Potatoes","Poultry, Other","Prepared Foods","Printed Products and Services","Printer and Copier Machines","Printing Services","Processed Meats","Produce, Other","Professional Services","Promotional","Pumpkin","Raisins","Relish","Retail","Retail Merchandise","Rice","Room Appliances","Room Supplies","Safety Equipment and Supplies","Safflower Oil","Salad Dressing","Salad Oil","Salads, Wet Prepared","Salsa","Sauces","Sauces & Toppings","Seafood, Other","Sesame Oil","Shellfish","Shipping Services","Shortening, Other","Shortenings, Oils,	Other","Smoothie","Snack Foods","Software","Soup","Soy Sauce","Spa Equipment","Specialized Vehicles","Specialty Seafood","Spinach","Sprouts","Squash","Steak Sauce","Stew","Sweet Potatoes or Yams","Table and Kitchen linen","Tableware","Tartar Sauce","Taxes & Licenses","Tea Bags","Tea, Instant","Tea, Liquid Concentrate","Tea, Loose Leaf","Tea, Other","Tea, Pod","Tea, Post-Mix, Syrup, BIB","Tea, Ready to Drink","Telecommunications equipment","Test Class","Textiles","Tomatoes","Turf Chemicals","Turkey","Utility Services","Veal","Vegetables, Mixed","Vending Services","Wall and Ceiling","Waste Disposal Products","Waste Disposal Services","Water Treatment Products","Water, Other","Water, Sparkling","Water, Still","Wild Game","Window Treatments and Hardware","Worcestershire Sauce","Writing Instruments","Writing Paper","Yogurt"]];
+
+
+/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+autocomplete(document.getElementById("myInput"), countries);
+
+</script>
+
+</body>
+</html>
