@@ -11,12 +11,20 @@
 </head>
 <body>
 
-<!-- Loading Three.js from a global CDN -->
-<script src="https://cdnjs.cloudflare.com"></script>
-<!-- Loading OrbitControls from a separate global source -->
-<script src="https://cdn.jsdelivr.net"></script>
+<!-- The Import Map translates 'three' and 'three/addons/' into real URLs -->
+<script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com",
+            "three/addons/": "https://unpkg.com"
+        }
+    }
+</script>
 
-<script>
+<script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
     // --- CONFIGURATION ---
     const CONFIG = {
         earthRadius: 5,
@@ -31,110 +39,84 @@
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
     document.body.appendChild(renderer.domElement);
 
-    // Orbit Controls (to spin the earth with your mouse)
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    const controls = new OrbitControls(camera, renderer.domElement);
     camera.position.z = 15;
 
-    // --- PROCEDURAL DARK EARTH ---
-    // Since images are blocked by CORS locally, we use a basic shader-like material
-    // to create the dark blue ocean and black land effect.
+    // --- DARK EARTH ---
     const geometry = new THREE.SphereGeometry(CONFIG.earthRadius, 64, 64);
-    
-    // Wireframe overlay gives it a "tech" look since we can't load textures easily locally
-    const earthMaterial = new THREE.MeshLambertMaterial({ 
-        color: 0x050510, // Very dark blue
-        wireframe: false 
+    const earthMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0x050515, // Dark blue ocean
+        shininess: 10
     });
+    
     const earth = new THREE.Mesh(geometry, earthMaterial);
     
-    // Add a subtle wireframe to define the continents' "feel"
+    // Add wireframe to suggest continents since textures are tricky
     const wireframe = new THREE.Mesh(
         geometry, 
-        new THREE.MeshBasicMaterial({ color: 0x111111, wireframe: true, transparent: true, opacity: 0.2 })
+        new THREE.MeshBasicMaterial({ color: 0x222222, wireframe: true, transparent: true, opacity: 0.1 })
     );
     
     const earthGroup = new THREE.Group();
     earthGroup.add(earth);
     earthGroup.add(wireframe);
     
-    // Initial rotation to face the Americas
+    // Center on Americas
     earthGroup.rotation.y = -Math.PI / 1.8; 
     scene.add(earthGroup);
 
-    // Lighting
-    const light = new THREE.PointLight(0xffffff, 2, 100);
+    // Light
+    const light = new THREE.DirectionalLight(0xffffff, 2);
     light.position.set(10, 10, 10);
     scene.add(light);
-    scene.add(new THREE.AmbientLight(0x333333));
+    scene.add(new THREE.AmbientLight(0x222222));
 
-    // --- RISING LIGHTS LOGIC ---
+    // --- RISING LIGHTS ---
     const particles = [];
     const sourceLocations = [];
 
-    // Generate 100 random source points on the sphere surface
     for (let i = 0; i < CONFIG.pointCount; i++) {
         const phi = Math.acos(-1 + (2 * i) / CONFIG.pointCount);
         const theta = Math.sqrt(CONFIG.pointCount * Math.PI) * phi;
-        
-        const pos = new THREE.Vector3(
+        sourceLocations.push(new THREE.Vector3(
             CONFIG.earthRadius * Math.sin(phi) * Math.cos(theta),
             CONFIG.earthRadius * Math.sin(phi) * Math.sin(theta),
             CONFIG.earthRadius * Math.cos(phi)
-        );
-        sourceLocations.push(pos);
+        ));
     }
 
     function createLightDot() {
         const source = sourceLocations[Math.floor(Math.random() * sourceLocations.length)];
-        
-        const dotGeo = new THREE.SphereGeometry(0.04, 6, 6);
-        const dotMat = new THREE.MeshBasicMaterial({ 
-            color: 0x00ffff, 
-            transparent: true, 
-            opacity: 1.0 
-        });
-        
-        const dot = new THREE.Mesh(dotGeo, dotMat);
+        const dot = new THREE.Mesh(
+            new THREE.SphereGeometry(0.04, 6, 6),
+            new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true })
+        );
         dot.position.copy(source);
-        
-        // Direction vector (away from center)
         dot.userData.direction = source.clone().normalize();
         dot.userData.dist = 0;
-        
-        earthGroup.add(dot); // Add to earthGroup so they rotate with the earth
+        earthGroup.add(dot); 
         particles.push(dot);
     }
 
-    // --- ANIMATION ---
     function animate() {
         requestAnimationFrame(animate);
+        if (Math.random() < CONFIG.spawnRate) createLightDot();
 
-        // Randomly spawn dots
-        if (Math.random() < CONFIG.spawnRate) {
-            createLightDot();
-        }
-
-        // Move and fade dots
         for (let i = particles.length - 1; i >= 0; i--) {
             const p = particles[i];
-            const moveVec = p.userData.direction.clone().multiplyScalar(CONFIG.moveSpeed);
-            p.position.add(moveVec);
+            p.position.add(p.userData.direction.clone().multiplyScalar(CONFIG.moveSpeed));
             p.userData.dist += CONFIG.moveSpeed;
-
-            // Fade out
             p.material.opacity = 1 - (p.userData.dist / CONFIG.maxHeight);
-
-            // Remove if too far
             if (p.userData.dist >= CONFIG.maxHeight) {
                 earthGroup.remove(p);
                 particles.splice(i, 1);
             }
         }
 
-        earthGroup.rotation.y += 0.001; // Slow constant rotation
-        
+        earthGroup.rotation.y += 0.001;
         controls.update();
         renderer.render(scene, camera);
     }
