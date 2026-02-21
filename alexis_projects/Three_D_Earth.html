@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Earth - Lights Rising</title>
+    <title>Dark Earth - Lights Above</title>
     <style>
         body { margin: 0; background-color: #000; overflow: hidden; }
         canvas { display: block; }
@@ -11,27 +11,19 @@
 </head>
 <body>
 
-<!-- The Import Map translates 'three' and 'three/addons/' into real URLs -->
-<script type="importmap">
-    {
-        "imports": {
-            "three": "https://unpkg.com",
-            "three/addons/": "https://unpkg.com"
-        }
-    }
-</script>
+<!-- Load Three.js (Global Version) -->
+<script src="https://cdnjs.cloudflare.com"></script>
+<!-- Load OrbitControls (Global Version) -->
+<script src="https://cdn.jsdelivr.net"></script>
 
-<script type="module">
-    import * as THREE from 'three';
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
+<script>
     // --- CONFIGURATION ---
     const CONFIG = {
         earthRadius: 5,
-        maxHeight: 3.0,
+        maxHeight: 2.5,
         pointCount: 100,
         spawnRate: 0.1,
-        moveSpeed: 0.01
+        moveSpeed: 0.015
     };
 
     // --- SCENE SETUP ---
@@ -42,34 +34,35 @@
     renderer.setPixelRatio(window.devicePixelRatio);
     document.body.appendChild(renderer.domElement);
 
-    const controls = new OrbitControls(camera, renderer.domElement);
+    // Orbit Controls
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
     camera.position.z = 15;
 
-    // --- DARK EARTH ---
+    // --- DARK EARTH (Procedural) ---
+    // We use a dark material and a wireframe to avoid needing external image textures
+    const earthGroup = new THREE.Group();
     const geometry = new THREE.SphereGeometry(CONFIG.earthRadius, 64, 64);
-    const earthMaterial = new THREE.MeshPhongMaterial({ 
-        color: 0x050515, // Dark blue ocean
-        shininess: 10
-    });
     
+    const earthMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0x050510, // Dark blue ocean
+        shininess: 5 
+    });
     const earth = new THREE.Mesh(geometry, earthMaterial);
     
-    // Add wireframe to suggest continents since textures are tricky
     const wireframe = new THREE.Mesh(
         geometry, 
-        new THREE.MeshBasicMaterial({ color: 0x222222, wireframe: true, transparent: true, opacity: 0.1 })
+        new THREE.MeshBasicMaterial({ color: 0x111111, wireframe: true, transparent: true, opacity: 0.2 })
     );
     
-    const earthGroup = new THREE.Group();
     earthGroup.add(earth);
     earthGroup.add(wireframe);
     
-    // Center on Americas
+    // Position to center on the Americas
     earthGroup.rotation.y = -Math.PI / 1.8; 
     scene.add(earthGroup);
 
-    // Light
-    const light = new THREE.DirectionalLight(0xffffff, 2);
+    // Lights
+    const light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(10, 10, 10);
     scene.add(light);
     scene.add(new THREE.AmbientLight(0x222222));
@@ -78,9 +71,11 @@
     const particles = [];
     const sourceLocations = [];
 
+    // Generate random source points on the sphere surface
     for (let i = 0; i < CONFIG.pointCount; i++) {
         const phi = Math.acos(-1 + (2 * i) / CONFIG.pointCount);
         const theta = Math.sqrt(CONFIG.pointCount * Math.PI) * phi;
+        
         sourceLocations.push(new THREE.Vector3(
             CONFIG.earthRadius * Math.sin(phi) * Math.cos(theta),
             CONFIG.earthRadius * Math.sin(phi) * Math.sin(theta),
@@ -92,31 +87,35 @@
         const source = sourceLocations[Math.floor(Math.random() * sourceLocations.length)];
         const dot = new THREE.Mesh(
             new THREE.SphereGeometry(0.04, 6, 6),
-            new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true })
+            new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 1.0 })
         );
         dot.position.copy(source);
         dot.userData.direction = source.clone().normalize();
         dot.userData.dist = 0;
-        earthGroup.add(dot); 
+        
+        earthGroup.add(dot); // Attaching to group makes it rotate with earth
         particles.push(dot);
     }
 
     function animate() {
         requestAnimationFrame(animate);
+
         if (Math.random() < CONFIG.spawnRate) createLightDot();
 
         for (let i = particles.length - 1; i >= 0; i--) {
             const p = particles[i];
-            p.position.add(p.userData.direction.clone().multiplyScalar(CONFIG.moveSpeed));
+            const moveVec = p.userData.direction.clone().multiplyScalar(CONFIG.moveSpeed);
+            p.position.add(moveVec);
             p.userData.dist += CONFIG.moveSpeed;
             p.material.opacity = 1 - (p.userData.dist / CONFIG.maxHeight);
+
             if (p.userData.dist >= CONFIG.maxHeight) {
                 earthGroup.remove(p);
                 particles.splice(i, 1);
             }
         }
 
-        earthGroup.rotation.y += 0.001;
+        earthGroup.rotation.y += 0.001; 
         controls.update();
         renderer.render(scene, camera);
     }
