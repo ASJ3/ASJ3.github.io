@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Black Sphere - Lights Above</title>
+    <title>Earth Sphere - Lights Above</title>
     <style>
-        /* Change 1: Updated body background color */
         body { 
             margin: 0; 
             background-color: #2D5FDB; 
@@ -17,123 +16,150 @@
 <body>
 
 <script type="importmap">
-    {
-        "imports": {
-              "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
-              "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/"
-        }
-    }
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/"
+  }
+}
 </script>
 
 <script type="module">
-    import * as THREE from 'three';
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-    const CONFIG = {
-        earthRadius: 5,
-        maxHeight: 3.0,
-        pointCount: 100,
-        spawnRate: 0.1,
-        moveSpeed: 0.01
-    };
+const CONFIG = {
+    earthRadius: 5,
+    maxHeight: 3.0,
+    pointCount: 100,
+    spawnRate: 0.1,
+    moveSpeed: 0.01
+};
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    
-    // Change 2: Added 'alpha: true' to allow the HTML background to show through
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    
-    // Change 3: Set clear color to 0 to ensure transparency
-    renderer.setClearColor(0x000000, 0); 
-    
-    document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-    const controls = new OrbitControls(camera, renderer.domElement);
-    camera.position.z = 15;
+// Keep alpha true so the HTML background shows through
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setClearColor(0x000000, 0);
+document.body.appendChild(renderer.domElement);
 
-    // --- DARK EARTH ---
-    const geometry = new THREE.SphereGeometry(CONFIG.earthRadius, 64, 64);
-    const earthMaterial = new THREE.MeshPhongMaterial({ 
-        color: 0x050515, 
-        shininess: 20 // Slightly increased shininess to help catch the light
-    });
-    
-    const earth = new THREE.Mesh(geometry, earthMaterial);
-    
-    const wireframe = new THREE.Mesh(
-        geometry, 
-        new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.05 })
+const controls = new OrbitControls(camera, renderer.domElement);
+camera.position.z = 15;
+
+// --- EARTH WITH TEXTURE ---
+const geometry = new THREE.SphereGeometry(CONFIG.earthRadius, 64, 64);
+
+// Load an Earth texture
+const loader = new THREE.TextureLoader();
+
+// Option A (recommended): host in your repo for same-origin loading
+// Put your image at: /alexis_projects/assets/earth_daymap_2k.jpg
+const earthTexture = loader.load(
+  './assets/earth_daymap_2k.jpg', // adjust path based on your file placement
+  () => { renderer.render(scene, camera); } // optional: render once loaded
+);
+
+// Ensure correct color space for textures (r162+)
+earthTexture.colorSpace = THREE.SRGBColorSpace;
+
+// A slightly glossy Phong material with the texture map
+const earthMaterial = new THREE.MeshPhongMaterial({
+    map: earthTexture,
+    shininess: 20
+});
+
+const earth = new THREE.Mesh(geometry, earthMaterial);
+
+// Optional soft wireframe overlay
+const wireframe = new THREE.Mesh(
+    geometry,
+    new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.05 })
+);
+
+const earthGroup = new THREE.Group();
+earthGroup.add(earth);
+earthGroup.add(wireframe);
+
+// Initial orientation (kept from your code)
+earthGroup.rotation.y = -Math.PI / 1.8;
+scene.add(earthGroup);
+
+// Lights
+const light = new THREE.DirectionalLight(0xffffff, 2.5);
+light.position.set(10, 10, 10);
+scene.add(light);
+scene.add(new THREE.AmbientLight(0x444444));
+
+// --- RISING LIGHTS ---
+const particles = [];
+const sourceLocations = [];
+
+for (let i = 0; i < CONFIG.pointCount; i++) {
+    const phi = Math.acos(-1 + (2 * i) / CONFIG.pointCount);
+    const theta = Math.sqrt(CONFIG.pointCount * Math.PI) * phi;
+    sourceLocations.push(new THREE.Vector3(
+        CONFIG.earthRadius * Math.sin(phi) * Math.cos(theta),
+        CONFIG.earthRadius * Math.sin(phi) * Math.sin(theta),
+        CONFIG.earthRadius * Math.cos(phi)
+    ));
+}
+
+function createLightDot() {
+    const source = sourceLocations[Math.floor(Math.random() * sourceLocations.length)];
+    const dot = new THREE.Mesh(
+        new THREE.SphereGeometry(0.04, 6, 6),
+        new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true })
     );
-    
-    const earthGroup = new THREE.Group();
-    earthGroup.add(earth);
-    earthGroup.add(wireframe);
-    
-    earthGroup.rotation.y = -Math.PI / 1.8; 
-    scene.add(earthGroup);
+    dot.position.copy(source);
+    dot.userData.direction = source.clone().normalize();
+    dot.userData.dist = 0;
+    earthGroup.add(dot);
+    particles.push(dot);
+}
 
-    // Light - Increased intensity slightly to make the black sphere pop against blue
-    const light = new THREE.DirectionalLight(0xffffff, 2.5);
-    light.position.set(10, 10, 10);
-    scene.add(light);
-    scene.add(new THREE.AmbientLight(0x444444));
+function animate() {
+    requestAnimationFrame(animate);
 
-    // --- RISING LIGHTS ---
-    const particles = [];
-    const sourceLocations = [];
+    if (Math.random() < CONFIG.spawnRate) createLightDot();
 
-    for (let i = 0; i < CONFIG.pointCount; i++) {
-        const phi = Math.acos(-1 + (2 * i) / CONFIG.pointCount);
-        const theta = Math.sqrt(CONFIG.pointCount * Math.PI) * phi;
-        sourceLocations.push(new THREE.Vector3(
-            CONFIG.earthRadius * Math.sin(phi) * Math.cos(theta),
-            CONFIG.earthRadius * Math.sin(phi) * Math.sin(theta),
-            CONFIG.earthRadius * Math.cos(phi)
-        ));
-    }
-
-    function createLightDot() {
-        const source = sourceLocations[Math.floor(Math.random() * sourceLocations.length)];
-        const dot = new THREE.Mesh(
-            new THREE.SphereGeometry(0.04, 6, 6),
-            new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true })
-        );
-        dot.position.copy(source);
-        dot.userData.direction = source.clone().normalize();
-        dot.userData.dist = 0;
-        earthGroup.add(dot); 
-        particles.push(dot);
-    }
-
-    function animate() {
-        requestAnimationFrame(animate);
-        if (Math.random() < CONFIG.spawnRate) createLightDot();
-
-        for (let i = particles.length - 1; i >= 0; i--) {
-            const p = particles[i];
-            p.position.add(p.userData.direction.clone().multiplyScalar(CONFIG.moveSpeed));
-            p.userData.dist += CONFIG.moveSpeed;
-            p.material.opacity = 1 - (p.userData.dist / CONFIG.maxHeight);
-            if (p.userData.dist >= CONFIG.maxHeight) {
-                earthGroup.remove(p);
-                particles.splice(i, 1);
-            }
+    for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.position.add(p.userData.direction.clone().multiplyScalar(CONFIG.moveSpeed));
+        p.userData.dist += CONFIG.moveSpeed;
+        p.material.opacity = 1 - (p.userData.dist / CONFIG.maxHeight);
+        if (p.userData.dist >= CONFIG.maxHeight) {
+            earthGroup.remove(p);
+            particles.splice(i, 1);
         }
-
-        earthGroup.rotation.y += 0.001;
-        controls.update();
-        renderer.render(scene, camera);
     }
 
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+    // Removed auto-rotation:
+    // earthGroup.rotation.y += 0.001;
 
-    animate();
+    controls.update();
+    renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+animate();
+
+/*
+Optional: If you prefer a CDN texture instead of hosting the image yourself,
+you can use something like:
+
+const earthTexture = loader.load('https://unpkg.com/@assets-by-haris/earth-textures@1.0.0/2k/earth_daymap_2k.jpg');
+
+Or a NASA Blue Marble derivative hosted elsewhere. If a CDN blocks cross-origin
+or changes headers, hosting the image in your repo (Option A) is more reliable.
+*/
 </script>
 </body>
 </html>
