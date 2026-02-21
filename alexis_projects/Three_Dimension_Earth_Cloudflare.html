@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earth Sphere - Lights Above</title>
+    <title>Earth Sphere - Yellow Lights</title>
     <style>
         body { 
             margin: 0; 
@@ -31,7 +31,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 const CONFIG = {
     earthRadius: 5,
     maxHeight: 3.0,
-    pointCount: 100,
+    pointCount: 300,     // <-- Increased from 100 to 300
     spawnRate: 0.1,
     moveSpeed: 0.01
 };
@@ -51,21 +51,12 @@ camera.position.z = 15;
 
 // --- EARTH WITH TEXTURE ---
 const geometry = new THREE.SphereGeometry(CONFIG.earthRadius, 64, 64);
-
-// Load an Earth texture
 const loader = new THREE.TextureLoader();
 
-// Option A (recommended): host in your repo for same-origin loading
-// Put your image at: /alexis_projects/assets/earth_daymap_2k.jpg
-const earthTexture = loader.load(
-  './assets/earth_daymap_2k.jpg', // adjust path based on your file placement
-  () => { renderer.render(scene, camera); } // optional: render once loaded
-);
-
-// Ensure correct color space for textures (r162+)
+// If your texture is at alexis_projects/assets/earth_daymap_2k.jpg:
+const earthTexture = loader.load('./assets/earth_daymap_2k.jpg');
 earthTexture.colorSpace = THREE.SRGBColorSpace;
 
-// A slightly glossy Phong material with the texture map
 const earthMaterial = new THREE.MeshPhongMaterial({
     map: earthTexture,
     shininess: 20
@@ -83,7 +74,7 @@ const earthGroup = new THREE.Group();
 earthGroup.add(earth);
 earthGroup.add(wireframe);
 
-// Initial orientation (kept from your code)
+// Initial orientation (kept)
 earthGroup.rotation.y = -Math.PI / 1.8;
 scene.add(earthGroup);
 
@@ -110,8 +101,8 @@ for (let i = 0; i < CONFIG.pointCount; i++) {
 function createLightDot() {
     const source = sourceLocations[Math.floor(Math.random() * sourceLocations.length)];
     const dot = new THREE.Mesh(
-        new THREE.SphereGeometry(0.04, 6, 6),
-        new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true })
+        new THREE.SphereGeometry(0.025, 6, 6), // <-- Smaller dots (was 0.04)
+        new THREE.MeshBasicMaterial({ color: 0xfcf18c, transparent: true }) // <-- New color
     );
     dot.position.copy(source);
     dot.userData.direction = source.clone().normalize();
@@ -136,7 +127,7 @@ function animate() {
         }
     }
 
-    // Removed auto-rotation:
+    // No auto-rotation (kept removed)
     // earthGroup.rotation.y += 0.001;
 
     controls.update();
@@ -150,16 +141,6 @@ window.addEventListener('resize', () => {
 });
 
 animate();
-
-/*
-Optional: If you prefer a CDN texture instead of hosting the image yourself,
-you can use something like:
-
-const earthTexture = loader.load('https://unpkg.com/@assets-by-haris/earth-textures@1.0.0/2k/earth_daymap_2k.jpg');
-
-Or a NASA Blue Marble derivative hosted elsewhere. If a CDN blocks cross-origin
-or changes headers, hosting the image in your repo (Option A) is more reliable.
-*/
 </script>
 </body>
 </html>
