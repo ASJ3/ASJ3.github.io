@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Earth - Rising Lights</title>
+    <style>
+        body { margin: 0; background-color: #000; overflow: hidden; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+
+<!-- Loading Three.js from a global CDN -->
+<script src="https://cdnjs.cloudflare.com"></script>
+<!-- Loading OrbitControls from a separate global source -->
+<script src="https://cdn.jsdelivr.net"></script>
+
+<script>
+    // --- CONFIGURATION ---
+    const CONFIG = {
+        earthRadius: 5,
+        maxHeight: 3.0,
+        pointCount: 100,
+        spawnRate: 0.1,
+        moveSpeed: 0.01
+    };
+
+    // --- SCENE SETUP ---
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Orbit Controls (to spin the earth with your mouse)
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    camera.position.z = 15;
+
+    // --- PROCEDURAL DARK EARTH ---
+    // Since images are blocked by CORS locally, we use a basic shader-like material
+    // to create the dark blue ocean and black land effect.
+    const geometry = new THREE.SphereGeometry(CONFIG.earthRadius, 64, 64);
+    
+    // Wireframe overlay gives it a "tech" look since we can't load textures easily locally
+    const earthMaterial = new THREE.MeshLambertMaterial({ 
+        color: 0x050510, // Very dark blue
+        wireframe: false 
+    });
+    const earth = new THREE.Mesh(geometry, earthMaterial);
+    
+    // Add a subtle wireframe to define the continents' "feel"
+    const wireframe = new THREE.Mesh(
+        geometry, 
+        new THREE.MeshBasicMaterial({ color: 0x111111, wireframe: true, transparent: true, opacity: 0.2 })
+    );
+    
+    const earthGroup = new THREE.Group();
+    earthGroup.add(earth);
+    earthGroup.add(wireframe);
+    
+    // Initial rotation to face the Americas
+    earthGroup.rotation.y = -Math.PI / 1.8; 
+    scene.add(earthGroup);
+
+    // Lighting
+    const light = new THREE.PointLight(0xffffff, 2, 100);
+    light.position.set(10, 10, 10);
+    scene.add(light);
+    scene.add(new THREE.AmbientLight(0x333333));
+
+    // --- RISING LIGHTS LOGIC ---
+    const particles = [];
+    const sourceLocations = [];
+
+    // Generate 100 random source points on the sphere surface
+    for (let i = 0; i < CONFIG.pointCount; i++) {
+        const phi = Math.acos(-1 + (2 * i) / CONFIG.pointCount);
+        const theta = Math.sqrt(CONFIG.pointCount * Math.PI) * phi;
+        
+        const pos = new THREE.Vector3(
+            CONFIG.earthRadius * Math.sin(phi) * Math.cos(theta),
+            CONFIG.earthRadius * Math.sin(phi) * Math.sin(theta),
+            CONFIG.earthRadius * Math.cos(phi)
+        );
+        sourceLocations.push(pos);
+    }
+
+    function createLightDot() {
+        const source = sourceLocations[Math.floor(Math.random() * sourceLocations.length)];
+        
+        const dotGeo = new THREE.SphereGeometry(0.04, 6, 6);
+        const dotMat = new THREE.MeshBasicMaterial({ 
+            color: 0x00ffff, 
+            transparent: true, 
+            opacity: 1.0 
+        });
+        
+        const dot = new THREE.Mesh(dotGeo, dotMat);
+        dot.position.copy(source);
+        
+        // Direction vector (away from center)
+        dot.userData.direction = source.clone().normalize();
+        dot.userData.dist = 0;
+        
+        earthGroup.add(dot); // Add to earthGroup so they rotate with the earth
+        particles.push(dot);
+    }
+
+    // --- ANIMATION ---
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // Randomly spawn dots
+        if (Math.random() < CONFIG.spawnRate) {
+            createLightDot();
+        }
+
+        // Move and fade dots
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            const moveVec = p.userData.direction.clone().multiplyScalar(CONFIG.moveSpeed);
+            p.position.add(moveVec);
+            p.userData.dist += CONFIG.moveSpeed;
+
+            // Fade out
+            p.material.opacity = 1 - (p.userData.dist / CONFIG.maxHeight);
+
+            // Remove if too far
+            if (p.userData.dist >= CONFIG.maxHeight) {
+                earthGroup.remove(p);
+                particles.splice(i, 1);
+            }
+        }
+
+        earthGroup.rotation.y += 0.001; // Slow constant rotation
+        
+        controls.update();
+        renderer.render(scene, camera);
+    }
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    animate();
+</script>
+</body>
+</html>
