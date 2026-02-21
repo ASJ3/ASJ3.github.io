@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Earth - Lights Above</title>
+    <title>Earth - Lights Above</title>
     <style>
         /* Change 1: Updated body background color */
         body { 
@@ -40,45 +40,41 @@
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     
-    // Change 2: Added 'alpha: true' to allow the HTML background to show through
+    // Alpha true allows the #2D5FDB background to show
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
-    
-    // Change 3: Set clear color to 0 to ensure transparency
     renderer.setClearColor(0x000000, 0); 
-    
     document.body.appendChild(renderer.domElement);
 
     const controls = new OrbitControls(camera, renderer.domElement);
     camera.position.z = 15;
 
-    // --- DARK EARTH ---
+    // --- SATELLITE EARTH ---
+    const loader = new THREE.TextureLoader();
+    
+    // Public satellite texture (CORS-friendly)
+    const earthTexture = loader.load('https://unpkg.com');
+
     const geometry = new THREE.SphereGeometry(CONFIG.earthRadius, 64, 64);
     const earthMaterial = new THREE.MeshPhongMaterial({ 
-        color: 0x050515, 
-        shininess: 20 // Slightly increased shininess to help catch the light
+        map: earthTexture,
+        shininess: 5
     });
     
     const earth = new THREE.Mesh(geometry, earthMaterial);
-    
-    const wireframe = new THREE.Mesh(
-        geometry, 
-        new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.05 })
-    );
-    
     const earthGroup = new THREE.Group();
     earthGroup.add(earth);
-    earthGroup.add(wireframe);
     
+    // Initial rotation to center on the Americas
     earthGroup.rotation.y = -Math.PI / 1.8; 
     scene.add(earthGroup);
 
-    // Light - Increased intensity slightly to make the black sphere pop against blue
+    // Lighting
     const light = new THREE.DirectionalLight(0xffffff, 2.5);
     light.position.set(10, 10, 10);
     scene.add(light);
-    scene.add(new THREE.AmbientLight(0x444444));
+    scene.add(new THREE.AmbientLight(0xbbbbbb)); // Brighter ambient for satellite view
 
     // --- RISING LIGHTS ---
     const particles = [];
@@ -97,8 +93,8 @@
     function createLightDot() {
         const source = sourceLocations[Math.floor(Math.random() * sourceLocations.length)];
         const dot = new THREE.Mesh(
-            new THREE.SphereGeometry(0.04, 6, 6),
-            new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true })
+            new THREE.SphereGeometry(0.05, 8, 8),
+            new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true })
         );
         dot.position.copy(source);
         dot.userData.direction = source.clone().normalize();
@@ -122,7 +118,7 @@
             }
         }
 
-        earthGroup.rotation.y += 0.001;
+        // AUTO-ROTATION REMOVED
         controls.update();
         renderer.render(scene, camera);
     }
