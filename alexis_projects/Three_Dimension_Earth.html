@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Earth - Rising Lights</title>
+    <style>
+        body { margin: 0; background-color: #050505; overflow: hidden; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+
+<script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com",
+            "three/addons/": "https://unpkg.com"
+        }
+    }
+</script>
+
+<script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    // --- CONFIGURATION ---
+    const CONFIG = {
+        earthRadius: 5,
+        maxHeight: 2.5, // How far they travel before disappearing
+        pointCount: 100, // Number of source locations
+        spawnRate: 0.05, // Probability of a new dot spawning per frame
+        moveSpeed: 0.015
+    };
+
+    // --- SCENE SETUP ---
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    document.body.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+
+    // --- LIGHTING ---
+    const ambientLight = new THREE.AmbientLight(0x404040, 2); // Soft white light
+    scene.add(ambientLight);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 3, 5);
+    scene.add(directionalLight);
+
+    // --- EARTH ---
+    // Dark Blue Oceans / Black Continents
+    const earthGroup = new THREE.Group();
+    const geometry = new THREE.SphereGeometry(CONFIG.earthRadius, 64, 64);
+    const material = new THREE.MeshPhongMaterial({
+        color: 0x000510, // Deep Dark Blue
+        specular: 0x111111,
+        shininess: 5,
+        // We use a texture map to define land vs water colors
+        map: new THREE.TextureLoader().load('https://unpkg.com'), // Provides high contrast
+    });
+    
+    // Applying the dark mode colors
+    material.onBeforeCompile = (shader) => {
+        shader.fragmentShader = shader.fragmentShader.replace(
+            `gl_FragColor = vec4( outgoingLight, diffuseColor.a );`,
+            `
+            float intensity = 1.0 - diffuseColor.r; // Invert to make land black
+            vec3 finalColor = mix(vec3(0.0, 0.02, 0.1), vec3(0.0, 0.0, 0.0), intensity);
+            gl_FragColor = vec4( finalColor, 1.0 );
+            `
+        );
+    };
+
+    const earth = new THREE.Mesh(geometry, material);
+    earthGroup.add(earth);
+    
+    // Rotate to center Americas (roughly)
+    earthGroup.rotation.y = -Math.PI / 2; 
+    scene.add(earthGroup);
+
+    camera.position.z = 12;
+
+    // --- PARTICLE LOGIC ---
+    const particles = [];
+    const sources = [];
+
+    // Initialize 100 random source locations on the sphere
+    for (let i = 0; i < CONFIG.pointCount; i++) {
+        const phi = Math.acos(-1 + (2 * i) / CONFIG.pointCount);
+        const theta = Math.sqrt(CONFIG.pointCount * Math.PI) * phi;
+        
+        const x = CONFIG.earthRadius * Math.sin(phi) * Math.cos(theta);
+        const y = CONFIG.earthRadius * Math.sin(phi) * Math.sin(theta);
+        const z = CONFIG.earthRadius * Math.cos(phi);
+        
+        sources.push(new THREE.Vector3(x, y, z));
+    }
+
+    const dotGeometry = new THREE.SphereGeometry(0.03, 8, 8);
+    const dotMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true });
+
+    function spawnPoint() {
+        const source = sources[Math.floor(Math.random() * sources.length)];
+        const dot = new THREE.Mesh(dotGeometry, dotMaterial.clone());
+        
+        dot.position.copy(source);
+        // Normalized vector represents the "upward" direction from center
+        dot.userData.velocity = source.clone().normalize().multiplyScalar(CONFIG.moveSpeed);
+        dot.userData.distanceTraveled = 0;
+        
+        scene.add(dot);
+        particles.push(dot);
+    }
+
+    // --- ANIMATION LOOP ---
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // Spawn logic
+        if (Math.random() < CONFIG.spawnRate) {
+            spawnPoint();
+        }
+
+        // Update particles
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.position.add(p.userData.velocity);
+            p.userData.distanceTraveled += CONFIG.moveSpeed;
+
+            // Fade out as they get higher
+            p.material.opacity = 1 - (p.userData.distanceTraveled / CONFIG.maxHeight);
+
+            // Remove if they reach max height
+            if (p.userData.distanceTraveled >= CONFIG.maxHeight) {
+                scene.remove(p);
+                particles.splice(i, 1);
+            }
+        }
+
+        earthGroup.rotation.y += 0.001; // Slow rotation
+        controls.update();
+        renderer.render(scene, camera);
+    }
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    animate();
+</script>
+</body>
+</html>
