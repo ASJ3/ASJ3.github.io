@@ -51,6 +51,7 @@ camera.position.z = 15;
 
 // 1. HIGH-RES EARTH (for the smooth texture)
 const earthGeo = new THREE.SphereGeometry(CONFIG.earthRadius, 64, 64);
+const loader = new THREE.TextureLoader();
 const earthTexture = loader.load('./assets/earth_daymap_2k.jpg');
 earthTexture.colorSpace = THREE.SRGBColorSpace;
 
