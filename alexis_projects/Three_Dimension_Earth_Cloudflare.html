@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earth Sphere - Rising Shiny Points</title>
+    <title>Earth Sphere - Rising Points</title>
     <style>
         body { 
             margin: 0; 
@@ -61,10 +61,17 @@ const earthMaterial = new THREE.MeshPhongMaterial({
 });
 const earth = new THREE.Mesh(earthGeo, earthMaterial);
 
-// 2. SPECIFIC GRID GEOMETRY (24 Vertical, 11 Horizontal)
-// We use 12 height segments to get 11 rings between the poles
-const gridGeo = new THREE.SphereGeometry(CONFIG.earthRadius + 0.01, 24, 12); 
-const edges = new THREE.EdgesGeometry(gridGeo);
+//--------------------------
+
+// 2. Create a HIGH-RES geometry for the grid (64x64 makes it perfectly curved)
+const gridDetailGeo = new THREE.SphereGeometry(CONFIG.earthRadius + 0.02, 64, 64);
+
+// 3. Use EdgesGeometry with a threshold
+// This only shows lines where the angle between faces is > 1 degree.
+// Because of how SphereGeometry is built, this naturally isolates 
+// the longitude and latitude lines while keeping them high-poly and curved.
+const edges = new THREE.EdgesGeometry(gridDetailGeo, 1); 
+
 const gridLine = new THREE.LineSegments(
     edges,
     new THREE.LineBasicMaterial({ 
@@ -73,6 +80,8 @@ const gridLine = new THREE.LineSegments(
         opacity: 0.15 
     })
 );
+
+//--------------------------
 
 const earthGroup = new THREE.Group();
 earthGroup.add(earth);
