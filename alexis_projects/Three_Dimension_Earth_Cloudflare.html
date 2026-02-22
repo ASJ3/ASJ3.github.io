@@ -65,10 +65,11 @@ const earthMaterial = new THREE.MeshPhongMaterial({
 const earth = new THREE.Mesh(geometry, earthMaterial);
 
 // Optional soft wireframe overlay
-const wireframe = new THREE.Mesh(
+/*const wireframe = new THREE.Mesh(
     geometry,
     new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.05 })
 );
+*/
 
 const earthGroup = new THREE.Group();
 earthGroup.add(earth);
