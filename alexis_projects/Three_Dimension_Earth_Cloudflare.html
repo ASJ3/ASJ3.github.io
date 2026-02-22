@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earth Sphere - Rising Light Points</title>
+    <title>Earth Sphere - Rising Lights</title>
     <style>
         body { 
             margin: 0; 
@@ -69,10 +69,10 @@ const gridGroup = new THREE.Group();
 const lineMat = new THREE.LineBasicMaterial({ 
     color: 0xffffff, 
     transparent: true, 
-    opacity: 0.15 
+    opacity: 0.08 
 });
 
-const gridRadius = CONFIG.earthRadius + 0.05;
+const gridRadius = CONFIG.earthRadius + 0.02;
 
 // 1. Create 24 Vertical Lines (Meridians)
 for (let i = 0; i < 24; i++) {
