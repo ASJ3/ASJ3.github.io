@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earth Sphere - Rising Points</title>
+    <title>Earth Sphere - Rising Shiny Points</title>
     <style>
         body { 
             margin: 0; 
@@ -49,47 +49,33 @@ document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 camera.position.z = 15;
 
-// --- EARTH WITH TEXTURE ---
-const geometry = new THREE.SphereGeometry(CONFIG.earthRadius, 64, 64);
-const loader = new THREE.TextureLoader();
-
-// If your texture is at alexis_projects/assets/earth_daymap_2k.jpg:
+// 1. HIGH-RES EARTH (for the smooth texture)
+const earthGeo = new THREE.SphereGeometry(CONFIG.earthRadius, 64, 64);
 const earthTexture = loader.load('./assets/earth_daymap_2k.jpg');
 earthTexture.colorSpace = THREE.SRGBColorSpace;
 
 const earthMaterial = new THREE.MeshPhongMaterial({
     map: earthTexture,
-    shininess: 60
+    shininess: 35
 });
+const earth = new THREE.Mesh(earthGeo, earthMaterial);
 
-const earth = new THREE.Mesh(geometry, earthMaterial);
-
-// Optional soft wireframe overlay
-/*const wireframe = new THREE.Mesh(
-    geometry,
-    new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.05 })
-);
-*/
-
-// --- CLEAN GRID (No Diagonals) ---
-// EdgesGeometry only captures the outlines of the faces
-const edges = new THREE.EdgesGeometry(geometry); 
-const wireframe = new THREE.LineSegments(
+// 2. SPECIFIC GRID GEOMETRY (24 Vertical, 11 Horizontal)
+// We use 12 height segments to get 11 rings between the poles
+const gridGeo = new THREE.SphereGeometry(CONFIG.earthRadius + 0.01, 24, 12); 
+const edges = new THREE.EdgesGeometry(gridGeo);
+const gridLine = new THREE.LineSegments(
     edges,
     new THREE.LineBasicMaterial({ 
         color: 0xffffff, 
         transparent: true, 
-        opacity: 0.3 // Increased slightly so it's visible
+        opacity: 0.15 
     })
 );
 
-
-    
-
 const earthGroup = new THREE.Group();
 earthGroup.add(earth);
-//earthGroup.add(wireframe);
-earthGroup.add(wireframe); // Adds the clean grid
+earthGroup.add(gridLine); // Add the custom grid instead of the old wireframe
 
 // Initial orientation (kept)
 earthGroup.rotation.y = -Math.PI / 1.8;
