@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earth Sphere - Rising Points</title>
+    <title>Earth Sphere - Rising Light Points</title>
     <style>
         body { 
             margin: 0; 
@@ -62,30 +62,66 @@ const earthMaterial = new THREE.MeshPhongMaterial({
 const earth = new THREE.Mesh(earthGeo, earthMaterial);
 
 //--------------------------
+// The entire code below is designed to get lat-long lines that are curved. It needs to be done by creating ellipses
+    
+// --- CUSTOM CURVED GRID (24 Vertical, 11 Horizontal) ---
+const gridGroup = new THREE.Group();
+const lineMat = new THREE.LineBasicMaterial({ 
+    color: 0xffffff, 
+    transparent: true, 
+    opacity: 0.15 
+});
 
-// 2. Create a HIGH-RES geometry for the grid (64x64 makes it perfectly curved)
-const gridDetailGeo = new THREE.SphereGeometry(CONFIG.earthRadius + 0.02, 64, 64);
+const gridRadius = CONFIG.earthRadius + 0.05;
 
-// 3. Use EdgesGeometry with a threshold
-// This only shows lines where the angle between faces is > 1 degree.
-// Because of how SphereGeometry is built, this naturally isolates 
-// the longitude and latitude lines while keeping them high-poly and curved.
-const edges = new THREE.EdgesGeometry(gridDetailGeo, 1); 
+// 1. Create 24 Vertical Lines (Meridians)
+for (let i = 0; i < 24; i++) {
+    const angle = (i / 24) * Math.PI * 2;
+    const curve = new THREE.EllipseCurve(
+        0, 0,            // Center
+        gridRadius, gridRadius, // Radius
+        0, 2 * Math.PI,  // Start/End Angle
+        false,           // Clockwise
+        0                // Rotation
+    );
+    const points = curve.getPoints(64); // Higher = smoother curve
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    const line = new THREE.Line(geometry, lineMat);
+    
+    // Rotate each circle to stand vertically and spread around the sphere
+    line.rotation.y = angle;
+    gridGroup.add(line);
+}
 
-const gridLine = new THREE.LineSegments(
-    edges,
-    new THREE.LineBasicMaterial({ 
-        color: 0xffffff, 
-        transparent: true, 
-        opacity: 0.15 
-    })
-);
+// 2. Create 11 Horizontal Lines (Parallels)
+// We skip the poles (top/bottom) and distribute 11 lines between them
+for (let i = 1; i <= 11; i++) {
+    // Math to calculate height and radius of the ring at a specific latitude
+    const lat = (i / 12) * Math.PI; 
+    const ringRadius = gridRadius * Math.sin(lat);
+    const ringY = gridRadius * Math.cos(lat);
+
+    const curve = new THREE.EllipseCurve(
+        0, 0,
+        ringRadius, ringRadius,
+        0, 2 * Math.PI
+    );
+    const points = curve.getPoints(64);
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    const line = new THREE.Line(geometry, lineMat);
+    
+    // Position the ring at the correct height and lay it flat
+    line.position.y = ringY;
+    line.rotation.x = Math.PI / 2;
+    gridGroup.add(line);
+}
 
 //--------------------------
 
+// Add the finished grid to your group
 const earthGroup = new THREE.Group();
 earthGroup.add(earth);
-earthGroup.add(gridLine); // Add the custom grid instead of the old wireframe
+earthGroup.add(gridGroup); 
 
 // Initial orientation (kept)
 earthGroup.rotation.y = -Math.PI / 1.8;
