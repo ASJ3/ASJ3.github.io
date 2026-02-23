@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earth Sphere - Rising Lights</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Earth Sphere - Rising Light Points</title>
     <style>
-        body { 
-            margin: 0; 
-            background-color: #2D5FDB; 
-            overflow: hidden; 
-        }
+        body { margin: 0; background-color: #2D5FDB; overflow: hidden; }
         canvas { display: block; }
     </style>
 </head>
@@ -30,16 +26,24 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const CONFIG = {
     earthRadius: 5,
-    maxHeight: 3.0,
-    pointCount: 5000,     // <-- Increased from 100 to 300
-    spawnRate: 0.07,
-    moveSpeed: 0.003
+    maxHeight: 1.0,          // ↑ higher = particles live longer (more on screen)
+    pointCount: 1000,       // source locations on the sphere's surface
+    spawnPerSecond: 500,     // ← main density knob (try 400–1500)
+    moveSpeed: 0.002         // ↓ lower = longer lifetime
 };
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+// Visual knobs for the points
+const DOT_SIZE = 0.03;         // sprite size in pixels (scaled with perspective)
+const DOT_COLOR = new THREE.Color(0xfcf18c);
+const MAX_PARTICLES = 50000;  // cap to avoid runaway growth
 
-// Keep alpha true so the HTML background shows through
+// --- Scene / Renderer / Camera ---
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(
+    75, window.innerWidth / window.innerHeight, 0.1, 1000
+);
+camera.position.z = 15;
+
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -47,100 +51,70 @@ renderer.setClearColor(0x000000, 0);
 document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
-camera.position.z = 15;
 
-// 1. HIGH-RES EARTH (for the smooth texture)
+// --- Earth (high-res texture) ---
 const earthGeo = new THREE.SphereGeometry(CONFIG.earthRadius, 64, 64);
 const loader = new THREE.TextureLoader();
-
-const earthTexture = loader.load('./assets/earth_daymap_8k.jpg');
+const earthTexture = loader.load('https://asj3.github.io/alexis_projects/assets/earth_daymap_8k.jpg');
 earthTexture.colorSpace = THREE.SRGBColorSpace;
-// Recommended: Add Anisotropy for sharper viewing at angles
-// This makes the texture look much sharper when the sphere edges curve away from the camera
 earthTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-    
+
 const earthMaterial = new THREE.MeshPhongMaterial({
     map: earthTexture,
     shininess: 35
 });
 const earth = new THREE.Mesh(earthGeo, earthMaterial);
 
-//--------------------------
-// The entire code below is designed to get lat-long lines that are curved. It needs to be done by creating ellipses
-    
-// --- CUSTOM CURVED GRID (24 Vertical, 11 Horizontal) ---
+// --- Curved grid (meridians & parallels) ---
 const gridGroup = new THREE.Group();
-const lineMat = new THREE.LineBasicMaterial({ 
-    color: 0xffffff, 
-    transparent: true, 
-    opacity: 0.08 
+const lineMat = new THREE.LineBasicMaterial({
+    color: 0xffffff,
+    transparent: true,
+    opacity: 0.08
 });
-
 const gridRadius = CONFIG.earthRadius + 0.02;
 
-// 1. Create 24 Vertical Lines (Meridians)
+// 24 meridians
 for (let i = 0; i < 24; i++) {
     const angle = (i / 24) * Math.PI * 2;
-    const curve = new THREE.EllipseCurve(
-        0, 0,            // Center
-        gridRadius, gridRadius, // Radius
-        0, 2 * Math.PI,  // Start/End Angle
-        false,           // Clockwise
-        0                // Rotation
-    );
-    const points = curve.getPoints(64); // Higher = smoother curve
+    const curve = new THREE.EllipseCurve(0, 0, gridRadius, gridRadius, 0, 2 * Math.PI);
+    const points = curve.getPoints(64);
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
     const line = new THREE.Line(geometry, lineMat);
-    
-    // Rotate each circle to stand vertically and spread around the sphere
     line.rotation.y = angle;
     gridGroup.add(line);
 }
 
-// 2. Create 11 Horizontal Lines (Parallels)
-// We skip the poles (top/bottom) and distribute 11 lines between them
+// 11 parallels
 for (let i = 1; i <= 11; i++) {
-    // Math to calculate height and radius of the ring at a specific latitude
-    const lat = (i / 12) * Math.PI; 
+    const lat = (i / 12) * Math.PI;
     const ringRadius = gridRadius * Math.sin(lat);
     const ringY = gridRadius * Math.cos(lat);
 
-    const curve = new THREE.EllipseCurve(
-        0, 0,
-        ringRadius, ringRadius,
-        0, 2 * Math.PI
-    );
+    const curve = new THREE.EllipseCurve(0, 0, ringRadius, ringRadius, 0, 2 * Math.PI);
     const points = curve.getPoints(64);
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
     const line = new THREE.Line(geometry, lineMat);
-    
-    // Position the ring at the correct height and lay it flat
     line.position.y = ringY;
     line.rotation.x = Math.PI / 2;
     gridGroup.add(line);
 }
 
-//--------------------------
-
-// Add the finished grid to your group
+// Group & lights
 const earthGroup = new THREE.Group();
 earthGroup.add(earth);
-earthGroup.add(gridGroup); 
-
-// Initial orientation (kept)
+earthGroup.add(gridGroup);
 earthGroup.rotation.y = -Math.PI / 1.8;
 scene.add(earthGroup);
 
-// Lights
-const light = new THREE.DirectionalLight(0xffffff, 2.5);
-light.position.set(10, 10, 10);
-scene.add(light);
+const dirLight = new THREE.DirectionalLight(0xffffff, 2.5);
+dirLight.position.set(10, 10, 10);
+scene.add(dirLight);
 scene.add(new THREE.AmbientLight(0x444444));
 
-// --- RISING LIGHTS ---
-const particles = [];
+// --- Rising Lights as a single THREE.Points ---
+// Pre-generate evenly distributed source points on the sphere surface
 const sourceLocations = [];
-
 for (let i = 0; i < CONFIG.pointCount; i++) {
     const phi = Math.acos(-1 + (2 * i) / CONFIG.pointCount);
     const theta = Math.sqrt(CONFIG.pointCount * Math.PI) * phi;
@@ -151,37 +125,181 @@ for (let i = 0; i < CONFIG.pointCount; i++) {
     ));
 }
 
-function createLightDot() {
-    const source = sourceLocations[Math.floor(Math.random() * sourceLocations.length)];
-    const dot = new THREE.Mesh(
-        new THREE.SphereGeometry(0.025, 6, 6), // <-- Smaller dots (was 0.04)
-        new THREE.MeshBasicMaterial({ color: 0xfcf18c, transparent: true }) // <-- New color
-    );
-    dot.position.copy(source);
-    dot.userData.direction = source.clone().normalize();
-    dot.userData.dist = 0;
-    earthGroup.add(dot);
-    particles.push(dot);
+// Typed arrays for point data
+const positions = new Float32Array(MAX_PARTICLES * 3);
+const opacities = new Float32Array(MAX_PARTICLES);     // per-point opacity (0..1)
+const directions = new Float32Array(MAX_PARTICLES * 3);// per-point outward direction
+const dists = new Float32Array(MAX_PARTICLES);         // distance traveled from surface
+const alive = new Uint8Array(MAX_PARTICLES);           // 0 = free, 1 = active
+
+// Geometry with attributes: position, aOpacity
+const pointsGeometry = new THREE.BufferGeometry();
+pointsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+pointsGeometry.setAttribute('aOpacity', new THREE.BufferAttribute(opacities, 1));
+
+// Shader material for round sprites with soft edges + per-vertex opacity
+const pointsMaterial = new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,             // avoid writing depth so glow stacks nicely
+    blending: THREE.AdditiveBlending, // nice glowing look
+    uniforms: {
+        uColor: { value: DOT_COLOR },
+        uSize: { value: DOT_SIZE },        // base size in pixels
+        uScale: { value: 1.0 }             // computed from viewport & projection
+    },
+    vertexShader: /* glsl */`
+        uniform float uSize;
+        uniform float uScale;
+        attribute float aOpacity;
+        varying float vOpacity;
+
+        void main() {
+            vOpacity = aOpacity;
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+            gl_Position = projectionMatrix * mvPosition;
+            // Match THREE.Points size attenuation:
+            // gl_PointSize = size * (scale / -mvPosition.z);
+            gl_PointSize = uSize * (uScale / -mvPosition.z);
+        }
+    `,
+    fragmentShader: /* glsl */`
+        uniform vec3 uColor;
+        varying float vOpacity;
+
+        void main() {
+            // Make a circular sprite using gl_PointCoord (0..1 range)
+            vec2 p = gl_PointCoord - vec2(0.5);
+            float r = length(p);
+            if (r > 0.5) discard;
+
+            // Soft edge falloff
+            float edge = smoothstep(0.5, 0.45, r);
+            gl_FragColor = vec4(uColor, edge * vOpacity);
+        }
+    `
+});
+
+const points = new THREE.Points(pointsGeometry, pointsMaterial);
+earthGroup.add(points);
+
+// Pool of free indices for spawning
+const freeIndices = [];
+for (let i = 0; i < MAX_PARTICLES; i++) freeIndices.push(i);
+
+// Active index list for fast updates (swap-remove)
+const active = [];
+
+// Helpers to read/write vector data in flat arrays
+function writeVec3(array, index3, v) {
+    array[index3] = v.x;
+    array[index3 + 1] = v.y;
+    array[index3 + 2] = v.z;
 }
+function addScaledVec3(array, index3, dir, scale) {
+    array[index3]     += dir[0] * scale;
+    array[index3 + 1] += dir[1] * scale;
+    array[index3 + 2] += dir[2] * scale;
+}
+
+function spawnDot() {
+    if (freeIndices.length === 0) return; // cap reached
+    const i = freeIndices.pop();
+    const i3 = i * 3;
+
+    const source = sourceLocations[(Math.random() * sourceLocations.length) | 0];
+
+    // position at the surface
+    positions[i3] = source.x;
+    positions[i3 + 1] = source.y;
+    positions[i3 + 2] = source.z;
+
+    // normalized outward direction
+    const nx = source.x / CONFIG.earthRadius;
+    const ny = source.y / CONFIG.earthRadius;
+    const nz = source.z / CONFIG.earthRadius;
+    directions[i3] = nx;
+    directions[i3 + 1] = ny;
+    directions[i3 + 2] = nz;
+
+    // life state
+    dists[i] = 0.0;
+    opacities[i] = 1.0;
+    alive[i] = 1;
+
+    active.push(i);
+}
+
+function killDotAt(activeIdx) {
+    const i = active[activeIdx];
+    alive[i] = 0;
+    opacities[i] = 0.0;
+    dists[i] = 0.0;
+
+    // return index to pool
+    freeIndices.push(i);
+
+    // swap-remove from active array
+    const last = active.length - 1;
+    if (activeIdx !== last) {
+        active[activeIdx] = active[last];
+    }
+    active.pop();
+}
+
+// Compute uScale to match THREE's point size attenuation
+function updatePointScaleUniform() {
+    const dbSize = new THREE.Vector2();
+    renderer.getDrawingBufferSize(dbSize);
+    // uScale = (rendererHeight / 2) * projectionMatrix[1][1]
+    pointsMaterial.uniforms.uScale.value =
+        (dbSize.y / 2) * camera.projectionMatrix.elements[5];
+}
+
+// Initial uniform setup
+updatePointScaleUniform();
+
+// Time-based spawning
+const clock = new THREE.Clock();
+let spawnAccumulator = 0;
 
 function animate() {
     requestAnimationFrame(animate);
 
-    if (Math.random() < CONFIG.spawnRate) createLightDot();
+    const dt = clock.getDelta(); // seconds since last frame
 
-    for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i];
-        p.position.add(p.userData.direction.clone().multiplyScalar(CONFIG.moveSpeed));
-        p.userData.dist += CONFIG.moveSpeed;
-        p.material.opacity = 1 - (p.userData.dist / CONFIG.maxHeight);
-        if (p.userData.dist >= CONFIG.maxHeight) {
-            earthGroup.remove(p);
-            particles.splice(i, 1);
+    // spawn as a function of time, not frames
+    spawnAccumulator += CONFIG.spawnPerSecond * dt;
+    while (spawnAccumulator >= 1.0) {
+        spawnDot();
+        spawnAccumulator -= 1.0;
+    }
+
+    // Update existing particles
+    const move = CONFIG.moveSpeed;
+    const invMaxHeight = 1.0 / CONFIG.maxHeight;
+
+    for (let k = active.length - 1; k >= 0; k--) {
+        const i = active[k];
+        const i3 = i * 3;
+
+        // Move outward along precomputed direction
+        addScaledVec3(positions, i3, [directions[i3], directions[i3+1], directions[i3+2]], move);
+
+        // Track traveled distance from surface (approx because direction is unit)
+        dists[i] += move;
+
+        // Fade by distance / maxHeight
+        opacities[i] = Math.max(0.0, 1.0 - dists[i] * invMaxHeight);
+
+        // Kill when exceeding max height
+        if (dists[i] >= CONFIG.maxHeight) {
+            killDotAt(k);
         }
     }
 
-    // No auto-rotation (kept removed)
-    // earthGroup.rotation.y += 0.001;
+    // Mark buffers dirty for GPU upload
+    pointsGeometry.attributes.position.needsUpdate = true;
+    pointsGeometry.attributes.aOpacity.needsUpdate = true;
 
     controls.update();
     renderer.render(scene, camera);
@@ -191,6 +309,7 @@ window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    updatePointScaleUniform();
 });
 
 animate();
